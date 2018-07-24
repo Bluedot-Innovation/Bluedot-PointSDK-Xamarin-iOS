@@ -41,11 +41,9 @@
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\..\..\..\Downloads\Bluedot_Point_SDK_iOS_1.9.5.297\libBDPointSDK-iphoneos.a">
-      <Kind>Static</Kind>
+    <NativeReference Include="..\BDPointSDK.framework">
+      <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
-      <ForceLoad>True</ForceLoad>
-      <Frameworks>AVFoundation CoreLocation Foundation MapKit CoreGraphics</Frameworks>
     </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />

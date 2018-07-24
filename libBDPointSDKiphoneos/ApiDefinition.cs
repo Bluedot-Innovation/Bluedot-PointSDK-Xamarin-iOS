@@ -39,13 +39,9 @@ namespace libBDPointSDKiphoneos
 		[Export("authorizationStatus")]
 		CLAuthorizationStatus AuthorizationStatus { get; }
 
-		// -(void)authenticateWithApiKey:(NSString *)apiKey packageName:(NSString *)packageName username:(NSString *)username;
-		[Export("authenticateWithApiKey:packageName:username:")]
-		void AuthenticateWithApiKey(string apiKey, string packageName, string username);
-
-		// -(void)authenticateWithApiKey:(NSString *)apiKey packageName:(NSString *)packageName username:(NSString *)username endpointURL:(NSURL *)endpointURL;
-		[Export("authenticateWithApiKey:packageName:username:endpointURL:")]
-		void AuthenticateWithApiKey(string apiKey, string packageName, string username, NSUrl endpointURL);
+        // -(void)authenticateWithApiKey:(NSString *)apiKey;
+        [Export("authenticateWithApiKey:")]
+        void AuthenticateWithApiKey(string apiKey);
 
 		// -(void)logOut;
 		[Export("logOut")]
@@ -110,10 +106,10 @@ namespace libBDPointSDKiphoneos
 	[BaseType(typeof(NSObject))]
 	interface BDPSessionDelegate
 	{
-		// @required -(void)willAuthenticateWithUsername:(NSString *)username apiKey:(NSString *)apiKey packageName:(NSString *)packageName;
+		// @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey;
 		[Abstract]
-		[Export("willAuthenticateWithUsername:apiKey:packageName:")]
-		void WillAuthenticateWithUsername(string username, string apiKey, string packageName);
+        [Export("willAuthenticateWithApiKey:")]
+		void WillAuthenticateWithApiKey(string apiKey);
 
 		// @required -(void)authenticationWasSuccessful;
 		[Abstract]
