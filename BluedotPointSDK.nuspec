@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>BluedotPointSDK</id>
+    <id>Bluedot.PointSDK</id>
     <version>1.0.0</version>
     <authors>Bluedot</authors>
     <owners>Bluedot</owners>
@@ -11,7 +11,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>location services bluedot</tags>
     <dependencies>
-      <group targetFramework="Xamarin.iOS11">
+      <group targetFramework="Xamarin.iOS10">
         <dependency id="Xamarin.Swift4" version="4.0.0.0"/>
         <dependency id="Xamarin.Swift4.Core" version="4.1.2"/>
         <dependency id="Xamarin.Swift4.CoreFoundation" version="4.1.2"/>
@@ -32,6 +32,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="libBDPointSDKiphoneos/bin/Release/libBDPointSDKiphoneos.dll" target="lib\Xamarin.iOS11\libBDPointSDKiphoneos.dll"/>
+    <file src="libBDPointSDKiphoneos/bin/Release/libBDPointSDKiphoneos.dll" target="lib\Xamarin.iOS10\libBDPointSDKiphoneos.dll"/>
   </files>
 </package>
