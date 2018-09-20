@@ -32,6 +32,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="libBDPointSDKiphoneos/bin/Release/libBDPointSDKiphoneos.dll" target="lib\Xamarin.iOS10\libBDPointSDKiphoneos.dll"/>
+    <file src="PointSDK.iOS/bin/Release/PointSDK.iOS.dll" target="lib\Xamarin.iOS10\PointSDK.iOS.dll"/>
   </files>
 </package>

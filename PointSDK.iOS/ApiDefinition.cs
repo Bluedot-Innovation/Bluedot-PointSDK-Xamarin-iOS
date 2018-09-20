@@ -8,6 +8,11 @@ using UIKit;
 
 namespace PointSDK.iOS
 {
+    interface IBDPLocationDelegate { }
+    interface IBDPSessionDelegate { }
+    interface IBDPointDelegate { }
+    interface IBDPSpatialObjectInfo { }
+
     // @interface BDLocationManager : CLLocationManager
     [BaseType(typeof(CLLocationManager))]
     interface BDLocationManager
@@ -38,14 +43,14 @@ namespace PointSDK.iOS
         void SetPointDelegate(IBDPointDelegate pointDelegate);
 
         [Wrap("WeakLocationDelegate")]
-        BDPLocationDelegate LocationDelegate { get; set; }
+        IBDPLocationDelegate LocationDelegate { get; set; }
 
         // @property id<BDPLocationDelegate> locationDelegate;
         [NullAllowed, Export("locationDelegate", ArgumentSemantic.Assign)]
         NSObject WeakLocationDelegate { get; set; }
 
         [Wrap("WeakSessionDelegate")]
-        BDPSessionDelegate SessionDelegate { get; set; }
+        IBDPSessionDelegate SessionDelegate { get; set; }
 
         // @property id<BDPSessionDelegate> sessionDelegate;
         [NullAllowed, Export("sessionDelegate", ArgumentSemantic.Assign)]
@@ -178,8 +183,6 @@ namespace PointSDK.iOS
         [Export("didStopRequiringUserInterventionForPowerMode")]
         void DidStopRequiringUserInterventionForPowerMode();
     }
-
-    interface IBDPointDelegate { }
 
     // @protocol BDPointDelegate <BDPSessionDelegate, BDPLocationDelegate>
     [Protocol]
@@ -582,8 +585,6 @@ namespace PointSDK.iOS
         [Export("geometry")]
         BDGeometry Geometry();
     }
-
-    interface IBDPSpatialObjectInfo { }
 
     // @protocol BDPSpatialObjectInfo <BDPSpatialObject>
     [Protocol]
