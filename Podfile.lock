@@ -1,0 +1,16 @@
+PODS:
+  - BluedotPointSDK (1.12.2)
+
+DEPENDENCIES:
+  - BluedotPointSDK
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BluedotPointSDK
+
+SPEC CHECKSUMS:
+  BluedotPointSDK: 8435566565f30fd739e26ae771f92c9f01c85ec6
+
+PODFILE CHECKSUM: dbe027ffd0716527d671035b2f6c67853a4facc1
+
+COCOAPODS: 1.5.3
