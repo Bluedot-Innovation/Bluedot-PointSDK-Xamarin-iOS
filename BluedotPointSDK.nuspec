@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Bluedot.PointSDK.iOS</id>
     <version>1.12.2</version>
     <authors>Bluedot</authors>
     <owners>Bluedot</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Xamarin wrapper for the Bluedot PointSDK.iOS</description>
     <releaseNotes>Xcode 10 support</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>location services bluedot</tags>
+    <projectUrl>https://bluedot.io/developers</projectUrl>
+    <licenseUrl>https://bluedot.io/agreements</licenseUrl>
+    <iconUrl>https://docs.bluedot.io/wp-content/uploads/2018/09/Bluedot_Location_dot.png</iconUrl>
     <dependencies>
       <group targetFramework="Xamarin.iOS10">
         <dependency id="Xamarin.Swift4" version="4.0.0.1"/>
