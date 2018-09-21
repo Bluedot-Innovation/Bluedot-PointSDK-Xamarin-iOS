@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Bluedot.PointSDK.iOS</id>
+    <version>1.12.2</version>
+    <authors>Bluedot</authors>
+    <owners>Bluedot</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Xamarin wrapper for the Bluedot PointSDK.iOS</description>
+    <releaseNotes>Xcode 10 support</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>location services bluedot</tags>
+    <projectUrl>https://bluedot.io/developers</projectUrl>
+    <licenseUrl>https://bluedot.io/agreements</licenseUrl>
+    <iconUrl>https://docs.bluedot.io/wp-content/uploads/2018/09/Bluedot_Location_dot.png</iconUrl>
+    <dependencies>
+      <group targetFramework="Xamarin.iOS10">
+        <dependency id="Xamarin.Swift4" version="4.0.0.1"/>
+        <dependency id="Xamarin.Swift4.Core" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.CoreFoundation" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.CoreGraphics" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.CoreImage" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.CoreLocation" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.Darwin" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.Dispatch" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.Foundation" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.MapKit" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.Metal" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.ObjectiveC" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.OS" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.QuartzCore" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.SwiftOnoneSupport" version="4.2.0"/>
+        <dependency id="Xamarin.Swift4.UIKit" version="4.2.0"/>
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="PointSDK.iOS/bin/Release/PointSDK.iOS.dll" target="lib\Xamarin.iOS10\PointSDK.iOS.dll"/>
+  </files>
+</package>

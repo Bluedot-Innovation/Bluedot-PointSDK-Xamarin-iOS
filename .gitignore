@@ -1,5 +1,15 @@
 
-# Created by https://www.gitignore.io/api/osx,visualstudio
+Binding/
+
+# Created by https://www.gitignore.io/api/osx,visualstudio,cocoapods
+
+### CocoaPods ###
+## CocoaPods GitIgnore Template
+
+# CocoaPods - Only use to conserve bandwidth / Save time on Pushing
+#           - Also handy if you have a large number of dependant pods
+#           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
+Pods/
 
 ### OSX ###
 # General
@@ -91,7 +101,7 @@ StyleCopReport.xml
 # Files built by Visual Studio
 *_i.c
 *_p.c
-*_i.h
+*_h.h
 *.ilk
 *.meta
 *.obj
@@ -360,5 +370,8 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
+# Local History for Visual Studio
+.localhistory/
 
-# End of https://www.gitignore.io/api/osx,visualstudio
+
+# End of https://www.gitignore.io/api/osx,visualstudio,cocoapods
