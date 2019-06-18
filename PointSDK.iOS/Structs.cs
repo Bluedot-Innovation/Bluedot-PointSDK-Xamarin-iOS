@@ -15,7 +15,7 @@ namespace PointSDK.iOS
     }
 
     [Native]
-    public enum BDAuthorizationLevel : nint
+    public enum BDAuthorizationLevel : long
     {
         Always,
         WhenInUse

@@ -12,7 +12,7 @@
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
-    <PackageVersion>1.13.2</PackageVersion>
+    <PackageVersion>1.14.0</PackageVersion>
     <Authors>Bluedot</Authors>
     <PackageIconUrl>https://docs.bluedot.io/wp-content/uploads/2018/09/Bluedot_Location_dot.png</PackageIconUrl>
     <PackageLicenseUrl>https://bluedot.io/agreements</PackageLicenseUrl>
