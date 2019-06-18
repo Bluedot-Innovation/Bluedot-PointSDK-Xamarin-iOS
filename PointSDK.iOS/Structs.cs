@@ -14,6 +14,13 @@ namespace PointSDK.iOS
         Authenticated
     }
 
+    [Native]
+    public enum BDAuthorizationLevel : nint
+    {
+        Always,
+        WhenInUse
+    }
+
     static class CFunctions
     {
         // extern NSString * BDStringFromAuthenticationState (BDAuthenticationState state);

@@ -32,7 +32,12 @@ namespace PointSDK.iOS
 
         // -(void)authenticateWithApiKey:(NSString *)apiKey;
         [Export("authenticateWithApiKey:")]
+        [Obsolete("First deprecated in 1.14.0 - use method AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel) instead")]
         void AuthenticateWithApiKey(string apiKey);
+
+        // -(void)authenticateWithApiKey:(NSString *)apiKey requestAuthorization:(BDAuthorizationLevel)authorizationLevel;
+        [Export("authenticateWithApiKey:requestAuthorization:")]
+        void AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel);
 
         // -(void)logOut;
         [Export("logOut")]
