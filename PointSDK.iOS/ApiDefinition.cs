@@ -22,10 +22,6 @@ namespace PointSDK.iOS
         [Export("instance")]
         BDLocationManager Instance { get; }
 
-        // @property (readonly, nonatomic) BOOL isBluetoothAvailable;
-        [Export("isBluetoothAvailable")]
-        bool IsBluetoothAvailable { get; }
-
         // @property (readonly, nonatomic) CLAuthorizationStatus authorizationStatus;
         [Export("authorizationStatus")]
         CLAuthorizationStatus AuthorizationStatus { get; }
