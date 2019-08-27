@@ -8,9 +8,101 @@ using UIKit;
 
 namespace PointSDK.iOS
 {
-    interface IBDPLocationDelegate { }
-    interface IBDPSessionDelegate { }
-    interface IBDPointDelegate { }
+    // @protocol BDPLocationDelegate <NSObject>
+    [Protocol, Model, Preserve]
+    [BaseType(typeof(NSObject))]
+    interface IBDPLocationDelegate {
+        // @optional -(void)didUpdateZoneInfo:(NSSet *)zoneInfos;
+        [Abstract]
+        [Export("didUpdateZoneInfo:")]
+        void DidUpdateZoneInfo(NSSet zoneInfos);
+
+        // @optional -(void)didCheckIntoFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)location willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData;
+        [Abstract]
+        [Export("didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData:")]
+        void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData);
+
+        // @optional -(void)didCheckOutFromFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
+        [Abstract]
+        [Export("didCheckOutFromFence:inZone:onDate:withDuration:withCustomData:")]
+        void DidCheckOutFromFence(BDFenceInfo fence, BDZoneInfo zoneInfo, NSDate date, nuint checkedInDuration, NSDictionary customData);
+
+        // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)locationInfo withProximity:(CLProximity)proximity willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData;
+        [Abstract]
+        [Export("didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData:")]
+        void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData);
+
+        // @optional -(void)didCheckOutFromBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
+        [Abstract]
+        [Export("didCheckOutFromBeacon:inZone:withProximity:onDate:withDuration:withCustomData:")]
+        void DidCheckOutFromBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, CLProximity proximity, NSDate date, nuint checkedInDuration, NSDictionary customData);
+
+        // @optional -(void)didStartRequiringUserInterventionForBluetooth;
+        [Abstract]
+        [Export("didStartRequiringUserInterventionForBluetooth")]
+        void DidStartRequiringUserInterventionForBluetooth();
+
+        // @optional -(void)didStopRequiringUserInterventionForBluetooth;
+        [Abstract]
+        [Export("didStopRequiringUserInterventionForBluetooth")]
+        void DidStopRequiringUserInterventionForBluetooth();
+
+        // @optional -(void)didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus;
+        [Abstract]
+        [Export("didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
+        void DidStartRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
+
+        // @optional -(void)didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus;
+        [Abstract]
+        [Export("didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
+        void DidStopRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
+
+        // @optional -(void)didStartRequiringUserInterventionForPowerMode;
+        [Abstract]
+        [Export("didStartRequiringUserInterventionForPowerMode")]
+        void DidStartRequiringUserInterventionForPowerMode();
+
+        // @optional -(void)didStopRequiringUserInterventionForPowerMode;
+        [Abstract]
+        [Export("didStopRequiringUserInterventionForPowerMode")]
+        void DidStopRequiringUserInterventionForPowerMode();
+    }
+
+    // @protocol BDPSessionDelegate <NSObject>
+    [Protocol, Model, Preserve]
+    [BaseType(typeof(NSObject))]
+    interface IBDPSessionDelegate {
+        // @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey;
+        [Abstract]
+        [Export("willAuthenticateWithApiKey:")]
+        void WillAuthenticateWithApiKey(string apiKey);
+
+        // @required -(void)authenticationWasSuccessful;
+        [Abstract]
+        [Export("authenticationWasSuccessful")]
+        void AuthenticationWasSuccessful();
+
+        // @required -(void)authenticationWasDeniedWithReason:(NSString *)reason;
+        [Abstract]
+        [Export("authenticationWasDeniedWithReason:")]
+        void AuthenticationWasDeniedWithReason(string reason);
+
+        // @required -(void)authenticationFailedWithError:(NSError *)error;
+        [Abstract]
+        [Export("authenticationFailedWithError:")]
+        void AuthenticationFailedWithError(NSError error);
+
+        // @required -(void)didEndSession;
+        [Abstract]
+        [Export("didEndSession")]
+        void DidEndSession();
+
+        // @required -(void)didEndSessionWithError:(NSError *)error;
+        [Abstract]
+        [Export("didEndSessionWithError:")]
+        void DidEndSessionWithError(NSError error);
+    }
+
     interface IBDPSpatialObjectInfo { }
 
     // @interface BDLocationManager : CLLocationManager
@@ -80,98 +172,6 @@ namespace PointSDK.iOS
         // -(void)setCustomEventMetaData:(NSDictionary *)data;
         [Export("customEventMetaData")]
         NSDictionary CustomEventMetaData { get; set; }
-    }
-
-    // @protocol BDPSessionDelegate <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    interface BDPSessionDelegate
-    {
-        // @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey;
-        [Abstract]
-        [Export("willAuthenticateWithApiKey:")]
-        void WillAuthenticateWithApiKey(string apiKey);
-
-        // @required -(void)authenticationWasSuccessful;
-        [Abstract]
-        [Export("authenticationWasSuccessful")]
-        void AuthenticationWasSuccessful();
-
-        // @required -(void)authenticationWasDeniedWithReason:(NSString *)reason;
-        [Abstract]
-        [Export("authenticationWasDeniedWithReason:")]
-        void AuthenticationWasDeniedWithReason(string reason);
-
-        // @required -(void)authenticationFailedWithError:(NSError *)error;
-        [Abstract]
-        [Export("authenticationFailedWithError:")]
-        void AuthenticationFailedWithError(NSError error);
-
-        // @required -(void)didEndSession;
-        [Abstract]
-        [Export("didEndSession")]
-        void DidEndSession();
-
-        // @required -(void)didEndSessionWithError:(NSError *)error;
-        [Abstract]
-        [Export("didEndSessionWithError:")]
-        void DidEndSessionWithError(NSError error);
-    }
-
-    // @protocol BDPLocationDelegate <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    interface BDPLocationDelegate
-    {
-        // @optional -(void)didUpdateZoneInfo:(NSSet *)zoneInfos;
-        [Export("didUpdateZoneInfo:")]
-        void DidUpdateZoneInfo(NSSet zoneInfos);
-
-        // @optional -(void)didCheckIntoFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)location willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData;
-        [Export("didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData:")]
-        void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData);
-
-        // @optional -(void)didCheckOutFromFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
-        [Export("didCheckOutFromFence:inZone:onDate:withDuration:withCustomData:")]
-        void DidCheckOutFromFence(BDFenceInfo fence, BDZoneInfo zoneInfo, NSDate date, nuint checkedInDuration, NSDictionary customData);
-
-        // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)locationInfo withProximity:(CLProximity)proximity willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData;
-        [Export("didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData:")]
-        void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData);
-
-        // @optional -(void)didCheckOutFromBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
-        [Export("didCheckOutFromBeacon:inZone:withProximity:onDate:withDuration:withCustomData:")]
-        void DidCheckOutFromBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, CLProximity proximity, NSDate date, nuint checkedInDuration, NSDictionary customData);
-
-        // @optional -(void)didStartRequiringUserInterventionForBluetooth;
-        [Export("didStartRequiringUserInterventionForBluetooth")]
-        void DidStartRequiringUserInterventionForBluetooth();
-
-        // @optional -(void)didStopRequiringUserInterventionForBluetooth;
-        [Export("didStopRequiringUserInterventionForBluetooth")]
-        void DidStopRequiringUserInterventionForBluetooth();
-
-        // @optional -(void)didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus;
-        [Export("didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
-        void DidStartRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
-
-        // @optional -(void)didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus;
-        [Export("didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
-        void DidStopRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
-
-        // @optional -(void)didStartRequiringUserInterventionForPowerMode;
-        [Export("didStartRequiringUserInterventionForPowerMode")]
-        void DidStartRequiringUserInterventionForPowerMode();
-
-        // @optional -(void)didStopRequiringUserInterventionForPowerMode;
-        [Export("didStopRequiringUserInterventionForPowerMode")]
-        void DidStopRequiringUserInterventionForPowerMode();
-    }
-
-    // @protocol BDPointDelegate <BDPSessionDelegate, BDPLocationDelegate>
-    [Protocol]
-    interface BDPointDelegate : BDPSessionDelegate, BDPLocationDelegate
-    {
     }
 
     // @protocol BDPAuthenticationStateProvider <NSObject>
