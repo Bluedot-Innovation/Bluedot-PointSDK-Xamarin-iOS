@@ -26,11 +26,6 @@ namespace PointSDK.iOS
         [Export("authorizationStatus")]
         CLAuthorizationStatus AuthorizationStatus { get; }
 
-        // -(void)authenticateWithApiKey:(NSString *)apiKey;
-        [Export("authenticateWithApiKey:")]
-        [Obsolete("First deprecated in 1.14.0 - use method AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel) instead")]
-        void AuthenticateWithApiKey(string apiKey);
-
         // -(void)authenticateWithApiKey:(NSString *)apiKey requestAuthorization:(BDAuthorizationLevel)authorizationLevel;
         [Export("authenticateWithApiKey:requestAuthorization:")]
         void AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel);
@@ -38,10 +33,6 @@ namespace PointSDK.iOS
         // -(void)logOut;
         [Export("logOut")]
         void LogOut();
-
-        // -(void)setPointDelegate:(id<BDPointDelegate>)pointDelegate;
-        [Export("setPointDelegate:")]
-        void SetPointDelegate(IBDPointDelegate pointDelegate);
 
         [Wrap("WeakLocationDelegate")]
         IBDPLocationDelegate LocationDelegate { get; set; }
@@ -140,11 +131,6 @@ namespace PointSDK.iOS
         [Export("didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData:")]
         void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData);
 
-        // @optional -(void)didCheckIntoFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo atCoordinate:(BDLocationCoordinate2D)coordinate onDate:(NSDate *)date willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("Use method didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData: instead")));
-        [Export("didCheckIntoFence:inZone:atCoordinate:onDate:willCheckOut:withCustomData:")]
-        [Obsolete("This method has been deprecated as of version 1.9.4; it will be removed in a future version. Please use DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData) instead")]
-        void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationCoordinate2D coordinate, NSDate date, bool willCheckOut, NSDictionary customData);
-
         // @optional -(void)didCheckOutFromFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
         [Export("didCheckOutFromFence:inZone:onDate:withDuration:withCustomData:")]
         void DidCheckOutFromFence(BDFenceInfo fence, BDZoneInfo zoneInfo, NSDate date, nuint checkedInDuration, NSDictionary customData);
@@ -152,11 +138,6 @@ namespace PointSDK.iOS
         // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)locationInfo withProximity:(CLProximity)proximity willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData;
         [Export("didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData:")]
         void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData);
-
-        // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("Use method didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData: instead")));
-        [Export("didCheckIntoBeacon:inZone:withProximity:onDate:willCheckOut:withCustomData:")]
-        [Obsolete("This method has been deprecated as of version 1.9.4; it will be removed in a future version. Please use DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData) instead")]
-        void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, CLProximity proximity, NSDate date, bool willCheckOut, NSDictionary customData);
 
         // @optional -(void)didCheckOutFromBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData;
         [Export("didCheckOutFromBeacon:inZone:withProximity:onDate:withDuration:withCustomData:")]
@@ -725,60 +706,6 @@ namespace PointSDK.iOS
         bool IsPointOverlay(MKOverlay overlay);
     }
 
-    // @interface BDPointSDK (MKMapView)
-    [Category]
-    [BaseType(typeof(MKMapView))]
-    interface MKMapView_BDPointSDK
-    {
-        // -(void)addOverlaysForBeacon:(BDBeaconInfo *)beaconInfo iconImage:(UIImage *)icon iconScale:(CGFloat)scale;
-        [Export("addOverlaysForBeacon:iconImage:iconScale:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        void AddOverlaysForBeacon(BDBeaconInfo beaconInfo, UIImage icon, nfloat scale);
-
-        // -(void)addOverlaysForFence:(BDFenceInfo *)fenceInfo;
-        [Export("addOverlaysForFence:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        void AddOverlaysForFence(BDFenceInfo fenceInfo);
-
-        // -(void)addOverlaysForZone:(BDZoneInfo *)zoneInfo withBeaconIconImage:(UIImage *)beaconIconImage beaconIconScale:(CGFloat)beaconIconScale;
-        [Export("addOverlaysForZone:withBeaconIconImage:beaconIconScale:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        void AddOverlaysForZone(BDZoneInfo zoneInfo, UIImage beaconIconImage, nfloat beaconIconScale);
-
-        // -(void)addOverlaysForZones:(NSSet *)zoneInfos withBeaconIconImage:(UIImage *)beaconIconImage beaconIconScale:(CGFloat)beaconIconScale;
-        [Export("addOverlaysForZones:withBeaconIconImage:beaconIconScale:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        void AddOverlaysForZones(NSSet zoneInfos, UIImage beaconIconImage, nfloat beaconIconScale);
-
-        // -(void)removeAllSpatialObjectOverlays;
-        [Export("removeAllSpatialObjectOverlays")]
-        void RemoveAllSpatialObjectOverlays();
-
-        // -(void)removeOverlaysForSpatialObjectInfo:(id<BDPSpatialObjectInfo>)spatialObject;
-        [Export("removeOverlaysForSpatialObjectInfo:")]
-        void RemoveOverlaysForSpatialObjectInfo(IBDPSpatialObjectInfo spatialObject);
-
-        // -(void)setTintColor:(UIColor *)tintColor forSpatialObject:(id<BDPSpatialObjectInfo>)spatialObjectInfo;
-        [Export("setTintColor:forSpatialObject:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        void SetTintColor(UIColor tintColor, IBDPSpatialObjectInfo spatialObjectInfo);
-
-        // -(MKMapRect)mapRectForSpatialObject:(id<BDPSpatialObjectInfo>)spatialObjectInfo;
-        [Export("mapRectForSpatialObject:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        MKMapRect MapRectForSpatialObject(IBDPSpatialObjectInfo spatialObjectInfo);
-
-        // -(MKMapRect)mapRectForZone:(BDZoneInfo *)zone;
-        [Export("mapRectForZone:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        MKMapRect MapRectForZone(BDZoneInfo zone);
-
-        // -(MKMapRect)mapRectForZones:(NSSet *)zones;
-        [Export("mapRectForZones:")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        MKMapRect MapRectForZones(NSSet zones);
-    }
-
     // @protocol BDPRestartAlertDelegate <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
@@ -807,17 +734,5 @@ namespace PointSDK.iOS
         [Abstract]
         [Export("description")]
         string Description { get; set; }
-    }
-
-    // @protocol BDPMKShape <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    interface BDPMKShape
-    {
-        // @required -(MKShape *)shape;
-        [Abstract]
-        [Export("shape")]
-        [Obsolete("First deprecation in PointSDK v1.13.0 Please consider to implement map overlays renderrer in your project.")]
-        MKShape Shape();
     }
 }
