@@ -75,5 +75,11 @@
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="packages.config" />
+    <BundleResource Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework\BDDataModel.momd\VersionInfo.plist">
+      <Link>VersionInfo.plist</Link>
+    </BundleResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>
