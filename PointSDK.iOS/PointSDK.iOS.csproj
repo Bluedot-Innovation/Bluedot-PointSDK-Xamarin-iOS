@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
-  <Import Project="..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E83096C2-B9BE-4E06-9640-EF300E522125}</ProjectGuid>
     <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{114E4A7C-34DA-4AE9-8DD8-E4F3B4D679B1}</ProjectGuid>
+    <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PointSDK.iOS</RootNamespace>
-    <AssemblyName>PointSDK.iOS</AssemblyName>
+    <RootNamespace>NativeLibrary</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <PackOnBuild>true</PackOnBuild>
+    <AssemblyName>NativeLibrary</AssemblyName>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
-    <PackageVersion>15.0.0</PackageVersion>
+    <PackageVersion>15.1.0</PackageVersion>
     <Authors>Bluedot</Authors>
+    <Copyright>Bluedot</Copyright>
     <PackageIconUrl>https://docs.bluedot.io/wp-content/uploads/2018/09/Bluedot_Location_dot.png</PackageIconUrl>
-    <PackageLicenseUrl>https://bluedot.io/agreements</PackageLicenseUrl>
+    <PackageLicenseUrl>https://bluedot.io/agreements/</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Owners>Bluedot</Owners>
-    <PackageProjectUrl>https://bluedot.io/developers</PackageProjectUrl>
+    <PackageProjectUrl>https://bluedot.io/developers/</PackageProjectUrl>
     <PackageReleaseNotes>https://docs.bluedot.io/version-release-notes/</PackageReleaseNotes>
     <PackageTags>location services bluedot</PackageTags>
     <Description>Xamarin wrapper for the Bluedot PointSDK.iOS</Description>
-    <Copyright>Bluedot</Copyright>
+    <PackOnBuild>true</PackOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,27 +36,19 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,20 +60,20 @@
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.Swift">
+      <Version>1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="NuGet.Build.Packaging">
+      <Version>0.2.2</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <NativeReference Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="packages.config" />
-    <BundleResource Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework\BDDataModel.momd\VersionInfo.plist">
-      <Link>VersionInfo.plist</Link>
-    </BundleResource>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
-  <Import Project="..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.4.0.0.1\build\Xamarin.Swift4.targets" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.4.0.0.1\build\Xamarin.Swift4.targets')" />
-  <Import Project="..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets')" />
-  <Import Project="packages\Xamarin.Swift.1.0.4\build\xamarinios\Xamarin.Swift.targets" Condition="Exists('packages\Xamarin.Swift.1.0.4\build\xamarinios\Xamarin.Swift.targets')" />
-  <Import Project="packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
 </Project>
