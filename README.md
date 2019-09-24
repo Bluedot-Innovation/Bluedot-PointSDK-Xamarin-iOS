@@ -30,7 +30,7 @@ Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuG
 6. Build the project with `release` configuration. It will produce `Bluedot.PointSDK.iOS.X.Y.Z.nupkg` in `/PointSDK.iOS/bin/Release/`.
 
 ## Validating
-There is a Integration sample at `git@github.com:Bluedot-Innovation/PointSDK-Xamarin-minimal-app-iOS.git`. This repository has a clone at `git@gitlab.bluedot.io:apple/xamarin-minimal-app.git`. The clone is a primary source of any modifications.
+There is a Integration sample at `git@github.com:Bluedot-Innovation/PointSDK-Xamarin-minimal-app-iOS.git`. The clone is a primary source of any modifications.
 
 1. Open `BDPointiOSXamarinDemo.sln`
 
@@ -41,10 +41,3 @@ There is a Integration sample at `git@github.com:Bluedot-Innovation/PointSDK-Xam
 4. Select desired version of **Bluedot.PointSDK.iOS** and press **Add Package**
 
 5. Update the **APIKey** in ViewController.cs and run the project.
-
-## Distributing
-Xamarin projects are distributed with the [NuGet](https://www.nuget.org)
-
-1. Authenticate at https://www.nuget.org with **support@bluedotinnovation.com** using Microsoft authentication.
-
-2. **Account -> Upload Package** then use the package from the **step 6** in **Building** stage
