@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <Import Project="..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -56,57 +57,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Xamarin.Swift4">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.4.0.0.1\lib\xamarinios10\Xamarin.Swift4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.Core">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.Core.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.Foundation">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.Foundation.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.Foundation.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.QuartzCore">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.QuartzCore.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.QuartzCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.UIKit">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.UIKit.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.UIKit.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.CoreGraphics">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.CoreGraphics.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.CoreGraphics.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.Dispatch">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.Dispatch.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.Dispatch.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.CoreFoundation">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.CoreFoundation.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.CoreFoundation.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.Darwin">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.Darwin.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.Darwin.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.CoreImage">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.CoreImage.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.CoreImage.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.ObjectiveC">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.ObjectiveC.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.ObjectiveC.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.Metal">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.Metal.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.Metal.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.CoreData">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.CoreData.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.CoreData.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.CoreLocation">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.CoreLocation.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.CoreLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.MapKit">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.MapKit.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.MapKit.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.OS">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.OS.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.OS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Swift4.SwiftOnoneSupport">
-      <HintPath>..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.SwiftOnoneSupport.4.2.1.1\lib\xamarinios10\Xamarin.Swift4.SwiftOnoneSupport.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,4 +82,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
   <Import Project="..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.4.0.0.1\build\Xamarin.Swift4.targets" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\Xamarin.Swift4.4.0.0.1\build\Xamarin.Swift4.targets')" />
   <Import Project="..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets" Condition="Exists('..\..\GitHub\xamarin-minimal-app\packages\NuGet.Build.Packaging.0.2.0\build\NuGet.Build.Packaging.targets')" />
+  <Import Project="packages\Xamarin.Swift.1.0.4\build\xamarinios\Xamarin.Swift.targets" Condition="Exists('packages\Xamarin.Swift.1.0.4\build\xamarinios\Xamarin.Swift.targets')" />
+  <Import Project="packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
 </Project>
