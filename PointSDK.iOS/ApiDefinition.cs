@@ -187,20 +187,6 @@ namespace PointSDK.iOS
         BDAuthenticationState AuthenticationState { get; }
     }
 
-    // @interface BDURLEncoding (NSString)
-    [Category]
-    [BaseType(typeof(NSString))]
-    interface NSString_BDURLEncoding
-    {
-        // -(NSString *)urlEncodeUsingEncoding:(NSStringEncoding)encoding;
-        [Export("urlEncodeUsingEncoding:")]
-        string UrlEncodeUsingEncoding(nuint encoding);
-
-        // -(NSString *)urlDecode;
-        [Export("urlDecode")]
-        string UrlDecode();
-    }
-
     // @protocol BDPDeepCopy <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
