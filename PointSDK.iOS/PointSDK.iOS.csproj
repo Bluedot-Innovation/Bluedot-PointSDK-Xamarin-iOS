@@ -7,9 +7,9 @@
     <ProjectGuid>{114E4A7C-34DA-4AE9-8DD8-E4F3B4D679B1}</ProjectGuid>
     <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NativeLibrary</RootNamespace>
+    <RootNamespace>PointSDK.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>NativeLibrary</AssemblyName>
+    <AssemblyName>PointSDK.iOS</AssemblyName>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
     <PackageVersion>15.1.0</PackageVersion>
