@@ -216,21 +216,6 @@ interface BDLocationManager_BDPointSDK : IBDPAuthenticationStateProvider
 	NSDictionary CustomEventMetaData { get; set; }
 }
 
-// @interface BDURLEncoding (NSString)
-[Category]
-[BaseType (typeof(NSString))]
-interface NSString_BDURLEncoding
-{
-	// -(NSString *)urlEncodeUsingEncoding:(NSStringEncoding)encoding;
-	[Export ("urlEncodeUsingEncoding:")]
-	string UrlEncodeUsingEncoding (nuint encoding);
-
-	// -(NSString *)urlDecode;
-	[Export ("urlDecode")]
-	[Verify (MethodToProperty)]
-	string UrlDecode { get; }
-}
-
 // @protocol BDPDeepCopy <NSObject>
 [Protocol, Model]
 [BaseType (typeof(NSObject))]

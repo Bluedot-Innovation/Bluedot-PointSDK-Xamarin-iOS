@@ -11,7 +11,8 @@ namespace PointSDK.iOS
     // @protocol BDPLocationDelegate <NSObject>
     [Protocol, Model, Preserve]
     [BaseType(typeof(NSObject))]
-    interface IBDPLocationDelegate {
+    interface IBDPLocationDelegate
+    {
         // @optional -(void)didUpdateZoneInfo:(NSSet *)zoneInfos;
         [Abstract]
         [Export("didUpdateZoneInfo:")]
@@ -71,7 +72,8 @@ namespace PointSDK.iOS
     // @protocol BDPSessionDelegate <NSObject>
     [Protocol, Model, Preserve]
     [BaseType(typeof(NSObject))]
-    interface IBDPSessionDelegate {
+    interface IBDPSessionDelegate
+    {
         // @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey;
         [Abstract]
         [Export("willAuthenticateWithApiKey:")]
@@ -183,20 +185,6 @@ namespace PointSDK.iOS
         [Abstract]
         [Export("authenticationState")]
         BDAuthenticationState AuthenticationState { get; }
-    }
-
-    // @interface BDURLEncoding (NSString)
-    [Category]
-    [BaseType(typeof(NSString))]
-    interface NSString_BDURLEncoding
-    {
-        // -(NSString *)urlEncodeUsingEncoding:(NSStringEncoding)encoding;
-        [Export("urlEncodeUsingEncoding:")]
-        string UrlEncodeUsingEncoding(nuint encoding);
-
-        // -(NSString *)urlDecode;
-        [Export("urlDecode")]
-        string UrlDecode();
     }
 
     // @protocol BDPDeepCopy <NSObject>
