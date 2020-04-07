@@ -4,7 +4,6 @@ using CoreLocation;
 using Foundation;
 using MapKit;
 using ObjCRuntime;
-using UIKit;
 
 namespace PointSDK.iOS
 {
@@ -245,9 +244,9 @@ namespace PointSDK.iOS
         bool Valid();
     }
 
-    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable>
+    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, NSCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDBoundingBox : INSCopying, BDPValidatable
+    interface BDBoundingBox : INSCopying, BDPValidatable, INSCoding
     {
         // -(instancetype)initWithNorth:(BDLocationDegrees)north west:(BDLocationDegrees)west south:(BDLocationDegrees)south east:(BDLocationDegrees)east;
         [Export("initWithNorth:west:south:east:")]
@@ -298,9 +297,9 @@ namespace PointSDK.iOS
         NSObject[] Vertices { get; }
     }
 
-    // @interface BDCircle : BDGeometry
+    // @interface BDCircle : BDGeometry <NSCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDCircle
+    interface BDCircle : INSCoding
     {
         // @property (nonatomic) BDPoint * center;
         [Export("center", ArgumentSemantic.Assign)]
@@ -332,9 +331,9 @@ namespace PointSDK.iOS
         nuint Hash();
     }
 
-    // @interface BDPoint : BDGeometry <NSCopying>
+    // @interface BDPoint : BDGeometry <NSCopying, NSCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDPoint : INSCopying
+    interface BDPoint : INSCopying, INSCoding
     {
         // +(instancetype)pointWithLongitude:(BDLocationDegrees)longitude latitude:(BDLocationDegrees)latitude;
         [Static]
@@ -390,9 +389,9 @@ namespace PointSDK.iOS
         bool IsOrigin();
     }
 
-    // @interface BDPolygonal : BDGeometry
+    // @interface BDPolygonal : BDGeometry <NSCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDPolygonal
+    interface BDPolygonal: INSCoding
     {
         // -(NSUInteger)vertexCount;
         [Export("vertexCount")]
@@ -411,9 +410,9 @@ namespace PointSDK.iOS
         bool IsClosed();
     }
 
-    // @interface BDLineString : BDPolygonal
+    // @interface BDLineString : BDPolygonal <NSCoding>
     [BaseType(typeof(BDPolygonal))]
-    interface BDLineString
+    interface BDLineString : INSCoding
     {
         // +(instancetype)lineStringWithVertices:(NSArray *)vertices copy:(BOOL)copy;
         [Static]
@@ -442,9 +441,9 @@ namespace PointSDK.iOS
         BDPoint End { get; set; }
     }
 
-    // @interface BDPolygon : BDPolygonal
+    // @interface BDPolygon : BDPolygonal <NSCoding>
     [BaseType(typeof(BDPolygonal))]
-    interface BDPolygon
+    interface BDPolygon: INSCoding
     {
         // +(instancetype)polygonWithVertices:(NSArray *)vertices copy:(BOOL)copy;
         [Static]
@@ -583,9 +582,9 @@ namespace PointSDK.iOS
         //BDGeometry Geometry { get; }
     }
 
-    // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo>
+    // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
     [BaseType(typeof(NSObject))]
-    interface BDFenceInfo : BDPSpatialObjectInfo
+    interface BDFenceInfo : BDPSpatialObjectInfo, INSCoding
     {
         //// @property (readonly, copy) NSString * name;
         //[Export("name")]
@@ -604,9 +603,9 @@ namespace PointSDK.iOS
         //BDGeometry Geometry { get; }
     }
 
-    // @interface BDBeaconInfo : NSObject <BDPSpatialObjectInfo>
+    // @interface BDBeaconInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
     [BaseType(typeof(NSObject))]
-    interface BDBeaconInfo : BDPSpatialObjectInfo
+    interface BDBeaconInfo : BDPSpatialObjectInfo, INSCoding
     {
         //// @property (readonly, copy) NSString * name;
         //[Export("name")]
