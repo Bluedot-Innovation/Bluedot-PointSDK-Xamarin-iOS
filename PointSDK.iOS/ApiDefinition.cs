@@ -244,7 +244,7 @@ namespace PointSDK.iOS
         bool Valid();
     }
 
-    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, INSCoding>
+    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, NSCoding>
     [BaseType(typeof(BDGeometry))]
     interface BDBoundingBox : INSCopying, BDPValidatable, INSCoding
     {
@@ -297,7 +297,7 @@ namespace PointSDK.iOS
         NSObject[] Vertices { get; }
     }
 
-    // @interface BDCircle : BDGeometry <INSCoding>
+    // @interface BDCircle : BDGeometry <NSCoding>
     [BaseType(typeof(BDGeometry))]
     interface BDCircle : INSCoding
     {
@@ -441,7 +441,7 @@ namespace PointSDK.iOS
         BDPoint End { get; set; }
     }
 
-    // @interface BDPolygon : BDPolygonal <INSCoding>
+    // @interface BDPolygon : BDPolygonal <NSCoding>
     [BaseType(typeof(BDPolygonal))]
     interface BDPolygon: INSCoding
     {
