@@ -6,6 +6,7 @@ This repository contains a project to make a C# wrapper for PointSDK.iOS framewo
 2. [Objective sharpie](https://docs.microsoft.com/en-us/xamarin/cross-platform/macios/binding/objective-sharpie/)
 3. [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)
 4. Same Xcode version as was used for SDK build
+5. [git LFS](https://git-lfs.github.com)
 
 ## Building
 Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuGets. However, in the future it requires an update.
