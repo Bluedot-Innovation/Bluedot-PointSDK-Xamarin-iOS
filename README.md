@@ -5,6 +5,7 @@ This repository contains a project to make a C# wrapper for PointSDK.iOS framewo
 1. [Cocoapods](https://cocoapods.org)
 2. [Objective sharpie](https://docs.microsoft.com/en-us/xamarin/cross-platform/macios/binding/objective-sharpie/)
 3. [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)
+4. Same Xcode version as was used for SDK build
 
 ## Building
 Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuGets. However, in the future it requires an update.
@@ -17,11 +18,11 @@ Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuG
 
 2. Update C# binding
 
-        sharpie bind -f /Pods/BluedotPointSDK/PointSDK/BDPointSDK.framework -o Binding/ -p BDPointSDK
+        sharpie bind -f ./Pods/BluedotPointSDK/PointSDK/BDPointSDK.framework -o ./Binding -p BDPointSDK
 
     This will update bindings in the `/Bindings` folder
 
-3. Git diff bindings with the previous version. If there are significunt changes in the API, it will be visible in the diff and project classes will require updating. Otherwise, project classes remain the same.
+3. `git diff` bindings with the previous version. If there are significunt changes in the API, it will be visible in the diff and project classes will require updating. Otherwise, project classes remain the same.
 
 4. Open solution and perform required changes to wrapper API.
 
