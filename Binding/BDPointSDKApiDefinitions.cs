@@ -278,9 +278,9 @@ interface BDPValidatable
 	bool Valid { get; }
 }
 
-// @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable>
+// @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, NSCoding>
 [BaseType (typeof(BDGeometry))]
-interface BDBoundingBox : INSCopying, IBDPValidatable
+interface BDBoundingBox : INSCopying, IBDPValidatable, INSCoding
 {
 	// -(instancetype)initWithNorth:(BDLocationDegrees)north west:(BDLocationDegrees)west south:(BDLocationDegrees)south east:(BDLocationDegrees)east;
 	[Export ("initWithNorth:west:south:east:")]
@@ -338,9 +338,9 @@ interface BDBoundingBox : INSCopying, IBDPValidatable
 	NSObject[] Vertices { get; }
 }
 
-// @interface BDCircle : BDGeometry
+// @interface BDCircle : BDGeometry <NSCoding>
 [BaseType (typeof(BDGeometry))]
-interface BDCircle
+interface BDCircle : INSCoding
 {
 	// @property (nonatomic) BDPoint * center;
 	[Export ("center", ArgumentSemantic.Assign)]
@@ -373,9 +373,9 @@ interface BDCircle
 	nuint Hash { get; }
 }
 
-// @interface BDPoint : BDGeometry <NSCopying>
+// @interface BDPoint : BDGeometry <NSCopying, NSCoding>
 [BaseType (typeof(BDGeometry))]
-interface BDPoint : INSCopying
+interface BDPoint : INSCopying, INSCoding
 {
 	// +(instancetype)pointWithLongitude:(BDLocationDegrees)longitude latitude:(BDLocationDegrees)latitude;
 	[Static]
@@ -459,9 +459,9 @@ interface BDPolygonal
 	bool IsClosed { get; }
 }
 
-// @interface BDLineString : BDPolygonal
+// @interface BDLineString : BDPolygonal <NSCoding>
 [BaseType (typeof(BDPolygonal))]
-interface BDLineString
+interface BDLineString : INSCoding
 {
 	// +(instancetype)lineStringWithVertices:(NSArray *)vertices copy:(BOOL)copy;
 	[Static]
@@ -492,9 +492,9 @@ interface BDLineString
 	BDPoint End { get; set; }
 }
 
-// @interface BDPolygon : BDPolygonal
+// @interface BDPolygon : BDPolygonal <NSCoding>
 [BaseType (typeof(BDPolygonal))]
-interface BDPolygon
+interface BDPolygon : INSCoding
 {
 	// +(instancetype)polygonWithVertices:(NSArray *)vertices copy:(BOOL)copy;
 	[Static]
@@ -637,9 +637,9 @@ interface BDPSpatialObjectInfo : IBDPSpatialObject
 	BDGeometry Geometry { get; }
 }
 
-// @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo>
+// @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
 [BaseType (typeof(NSObject))]
-interface BDFenceInfo : IBDPSpatialObjectInfo
+interface BDFenceInfo : IBDPSpatialObjectInfo, INSCoding
 {
 	// @property (readonly, copy) NSString * name;
 	[Export ("name")]
@@ -658,9 +658,9 @@ interface BDFenceInfo : IBDPSpatialObjectInfo
 	BDGeometry Geometry { get; }
 }
 
-// @interface BDBeaconInfo : NSObject <BDPSpatialObjectInfo>
+// @interface BDBeaconInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
 [BaseType (typeof(NSObject))]
-interface BDBeaconInfo : IBDPSpatialObjectInfo
+interface BDBeaconInfo : IBDPSpatialObjectInfo, INSCoding
 {
 	// @property (readonly, copy) NSString * name;
 	[Export ("name")]
