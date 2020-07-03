@@ -122,6 +122,27 @@ interface BDPointDelegate : IBDPSessionDelegate, IBDPLocationDelegate
 {
 }
 
+// @protocol BDPTempoTrackingDelegate <NSObject>
+[Protocol, Model]
+[BaseType (typeof(NSObject))]
+interface BDPTempoTrackingDelegate
+{
+	// @required -(void)didStartTracking;
+	[Abstract]
+	[Export ("didStartTracking")]
+	void DidStartTracking ();
+
+	// @required -(void)didStopTracking;
+	[Abstract]
+	[Export ("didStopTracking")]
+	void DidStopTracking ();
+
+	// @required -(void)didStopTrackingWithError:(NSError *)error;
+	[Abstract]
+	[Export ("didStopTrackingWithError:")]
+	void DidStopTrackingWithError (NSError error);
+}
+
 // @protocol BDPAuthenticationStateProvider <NSObject>
 [Protocol, Model]
 [BaseType (typeof(NSObject))]
@@ -167,6 +188,13 @@ interface BDLocationManager_BDPointSDK : IBDPAuthenticationStateProvider
 	// @property id<BDPSessionDelegate> sessionDelegate;
 	[NullAllowed, Export ("sessionDelegate", ArgumentSemantic.Assign)]
 	NSObject WeakSessionDelegate { get; set; }
+
+	[Wrap ("WeakTempoTrackingDelegate")]
+	BDPTempoTrackingDelegate TempoTrackingDelegate { get; set; }
+
+	// @property id<BDPTempoTrackingDelegate> tempoTrackingDelegate;
+	[NullAllowed, Export ("tempoTrackingDelegate", ArgumentSemantic.Assign)]
+	NSObject WeakTempoTrackingDelegate { get; set; }
 
 	[Wrap ("WeakAuthenticationDelegate")]
 	BDPAuthenticationDelegate AuthenticationDelegate { get; set; }
@@ -214,6 +242,14 @@ interface BDLocationManager_BDPointSDK : IBDPAuthenticationStateProvider
 	[Export ("customEventMetaData")]
 	[Verify (MethodToProperty)]
 	NSDictionary CustomEventMetaData { get; set; }
+
+	// -(void)startTempoTracking:(NSString * _Nonnull)destinationId;
+	[Export ("startTempoTracking:")]
+	void StartTempoTracking (string destinationId);
+
+	// -(void)stopTempoTracking;
+	[Export ("stopTempoTracking")]
+	void StopTempoTracking ();
 }
 
 // @protocol BDPDeepCopy <NSObject>
