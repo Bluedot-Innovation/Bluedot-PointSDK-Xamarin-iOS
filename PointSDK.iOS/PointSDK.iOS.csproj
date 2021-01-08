@@ -12,7 +12,7 @@
     <AssemblyName>PointSDK.iOS</AssemblyName>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
-    <PackageVersion>15.3.0</PackageVersion>
+    <PackageVersion>15.4.0</PackageVersion>
     <Authors>Bluedot</Authors>
     <Copyright>Bluedot</Copyright>
     <PackageIconUrl>https://docs.bluedot.io/wp-content/uploads/2018/09/Bluedot_Location_dot.png</PackageIconUrl>
@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Swift">
-      <Version>1.0.4</Version>
+      <Version>1.0.7</Version>
     </PackageReference>
     <PackageReference Include="NuGet.Build.Packaging">
       <Version>0.2.2</Version>
@@ -70,16 +70,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework">
-      <Kind>Framework</Kind>
-      <SmartLink>False</SmartLink>
-    </NativeReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="packages.config" />
     <BundleResource Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework\BDDataModel.momd\VersionInfo.plist">
       <Link>VersionInfo.plist</Link>
     </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework">
+      <Kind>Framework</Kind>
+      <SmartLink>False</SmartLink>
+    </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.ObjCBinding.CSharp.targets" />
 </Project>
