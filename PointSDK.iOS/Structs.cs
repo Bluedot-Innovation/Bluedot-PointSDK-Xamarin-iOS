@@ -56,6 +56,7 @@ namespace PointSDK.iOS
 	static class CFunctions
 	{
 		// extern NSString * BDStringFromAuthenticationState (BDAuthenticationState state) __attribute__((deprecated("First deprecated in 15.4.0 - This will be removed in future version")));
+		[Obsolete("First deprecated in 15.4.0 - This will be removed in future version")]
 		[DllImport("__Internal")]
 		static extern NSString BDStringFromAuthenticationState(BDAuthenticationState state);
 
