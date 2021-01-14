@@ -18,10 +18,12 @@ namespace PointSDK.iOS
         void TempoTrackingDidExpire();
 
         // @optional -(void)didStartTracking __attribute__((deprecated("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to `BDLocationManager.-startTempoTrackingWithDestinationId:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to startTempoTrackingWithDestinationId:completion:")]
         [Export("didStartTracking")]
         void DidStartTracking();
 
         // @optional -(void)didStopTracking __attribute__((deprecated("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to `BDLocationManager.-stopTempoTrackingWithCompletion:`. However, if tempo tracking expires, `tempoTrackingdidExpire` will be called instead")));
+        [Obsolete("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to stopTempoTrackingWithCompletion:. However, if tempo tracking expires, tempoTrackingdidExpire will be called instead")]
         [Export("didStopTracking")]
         void DidStopTracking();
 
@@ -37,56 +39,67 @@ namespace PointSDK.iOS
     interface IBDPLocationDelegate
     {
         // @optional -(void)didUpdateZoneInfo:(NSSet *)zoneInfos __attribute__((deprecated("First deprecated in 15.4.0 - Features migrated to `-[BDPGeoTriggeringEventDelegate onZoneInfoUpdate:]` method")));
+        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, onZoneInfoUpdate method")]
         [Abstract]
         [Export("didUpdateZoneInfo:")]
         void DidUpdateZoneInfo(NSSet zoneInfos);
 
         // @optional -(void)didCheckIntoFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)location willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `-[BDPGeoTriggeringEventDelegate didEnterZone:]`")));
         [Abstract]
+        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, didEnterZone method")]
         [Export("didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData:")]
         void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData);
 
         // @optional -(void)didCheckOutFromFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `-[BDPGeoTriggeringEventDelegate didExitZone:]`")));
+        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, didExitZone method")]
         [Abstract]
         [Export("didCheckOutFromFence:inZone:onDate:withDuration:withCustomData:")]
         void DidCheckOutFromFence(BDFenceInfo fence, BDZoneInfo zoneInfo, NSDate date, nuint checkedInDuration, NSDictionary customData);
 
         // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)locationInfo withProximity:(CLProximity)proximity willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Abstract]
         [Export("didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData:")]
         void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData);
 
         // @optional -(void)didCheckOutFromBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Abstract]
         [Export("didCheckOutFromBeacon:inZone:withProximity:onDate:withDuration:withCustomData:")]
         void DidCheckOutFromBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, CLProximity proximity, NSDate date, nuint checkedInDuration, NSDictionary customData);
 
         // @optional -(void)didStartRequiringUserInterventionForBluetooth __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Abstract]
         [Export("didStartRequiringUserInterventionForBluetooth")]
         void DidStartRequiringUserInterventionForBluetooth();
 
         // @optional -(void)didStopRequiringUserInterventionForBluetooth __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Abstract]
         [Export("didStopRequiringUserInterventionForBluetooth")]
         void DidStopRequiringUserInterventionForBluetooth();
 
         // @optional -(void)didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate locationAuthorizationDidChangeFromPreviousStatus:toNewStatus:]`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, locationAuthorizationDidChangeFromPreviousStatus:toNewStatus: method")]
         [Abstract]
         [Export("didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
         void DidStartRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
 
         // @optional -(void)didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate locationAuthorizationDidChangeFromPreviousStatus:toNewStatus:]`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, locationAuthorizationDidChangeFromPreviousStatus:toNewStatus: method")]
         [Abstract]
         [Export("didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
         void DidStopRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
 
         // @optional -(void)didStartRequiringUserInterventionForPowerMode __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate lowPowerModeDidChange:]`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, lowPowerModeDidChange: method")]
         [Abstract]
         [Export("didStartRequiringUserInterventionForPowerMode")]
         void DidStartRequiringUserInterventionForPowerMode();
 
         // @optional -(void)didStopRequiringUserInterventionForPowerMode __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate lowPowerModeDidChange:]`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, lowPowerModeDidChange: method")]
         [Abstract]
         [Export("didStopRequiringUserInterventionForPowerMode")]
         void DidStopRequiringUserInterventionForPowerMode();
@@ -138,31 +151,37 @@ namespace PointSDK.iOS
     interface IBDPSessionDelegate
     {
         // @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
         [Abstract]
         [Export("willAuthenticateWithApiKey:")]
         void WillAuthenticateWithApiKey(string apiKey);
 
         // @required -(void)authenticationWasSuccessful __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
         [Abstract]
         [Export("authenticationWasSuccessful")]
         void AuthenticationWasSuccessful();
 
         // @required -(void)authenticationWasDeniedWithReason:(NSString *)reason __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
         [Abstract]
         [Export("authenticationWasDeniedWithReason:")]
         void AuthenticationWasDeniedWithReason(string reason);
 
         // @required -(void)authenticationFailedWithError:(NSError *)error __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
         [Abstract]
         [Export("authenticationFailedWithError:")]
         void AuthenticationFailedWithError(NSError error);
 
         // @required -(void)didEndSession __attribute__((deprecated("First deprecated in 15.4.0 - session ending delegate callbacks are now returned in reset's completion callbacks. Please refer to `BDLocationManager.-resetWithCompletion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, resetWithCompletion: method")]
         [Abstract]
         [Export("didEndSession")]
         void DidEndSession();
 
         // @required -(void)didEndSessionWithError:(NSError *)error __attribute__((deprecated("First deprecated in 15.4.0 - session ending delegate callbacks are now returned in reset's completion callbacks. Please refer to `BDLocationManager.-resetWithCompletion:`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, resetWithCompletion: method")]
         [Abstract]
         [Export("didEndSessionWithError:")]
         void DidEndSessionWithError(NSError error);
@@ -197,10 +216,12 @@ namespace PointSDK.iOS
 
 
         // -(void)authenticateWithApiKey:(NSString *)apiKey __attribute__((deprecated("First deprecated in 1.14.0 - use method `-[BDLocationManager initializeWithProjectId:completion:]` instead")));
+        [Obsolete("First deprecated in 1.14.0 - use method initializeWithProjectId:completion: instead")]
         [Export("authenticateWithApiKey:requestAuthorization:")]
         void AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel);
 
         // -(void)logOut __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager resetWithCompletion:]` instead")));
+        [Obsolete("First deprecated in 15.4.0 - use method resetWithCompletion: instead")]
         [Export("logOut")]
         void LogOut();
 
@@ -208,6 +229,7 @@ namespace PointSDK.iOS
         IBDPLocationDelegate LocationDelegate { get; set; }
 
         // @property id<BDPLocationDelegate> locationDelegate __attribute__((deprecated("First deprecated in 15.4.0 - Features migrated to `bluedotServiceDelegate` or `geoTriggeringEventDelegate`")));
+        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPBluedotServiceDelegate or BDPGeoTriggeringEventDelegate")]
         [NullAllowed, Export("locationDelegate", ArgumentSemantic.Assign)]
         NSObject WeakLocationDelegate { get; set; }
 
@@ -215,6 +237,7 @@ namespace PointSDK.iOS
         IBDPSessionDelegate SessionDelegate { get; set; }
 
         // @property id<BDPSessionDelegate> sessionDelegate __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `-[BDLocationManager initialize:completion:]`")));
+        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to initializeWithProjectId:completion:")]
         [NullAllowed, Export("sessionDelegate", ArgumentSemantic.Assign)]
         NSObject WeakSessionDelegate { get; set; }
 
@@ -253,6 +276,7 @@ namespace PointSDK.iOS
         void SetZone(string zoneId, bool disable);
 
         // -(BOOL)isZoneDisabledByApplication:(NSString *)zoneId __attribute__((deprecated("First deprecated in 1.13 - use method `-[BDLocationManager applicationContainsDisabledZone:completion:]` instead")));
+        [Obsolete("First deprecated in 1.13 - use method applicationContainsDisabledZone:completion: instead")]
         [Export("isZoneDisabledByApplication:")]
         bool IsZoneDisabledByApplication(string zoneId);
 
@@ -294,6 +318,7 @@ namespace PointSDK.iOS
         void StartTempoTrackingWithDestinationId(string destinationId, Action<NSError> completion);
 
         // -(void)startTempoTracking:(NSString * _Nonnull)destinationId __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager startTempoTrackingWithDestinationId:completion:]` instead")));
+        [Obsolete("First deprecated in 15.4.0 - use method startTempoTrackingWithDestinationId:completion: instead")]
         [Export("startTempoTracking:")]
         void StartTempoTracking(string destinationId);
 
@@ -306,6 +331,7 @@ namespace PointSDK.iOS
         bool IsTempoRunning { get; }
 
         // -(void)stopTempoTracking __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager stopTempoTrackingWithCompletion:]` instead")));
+        [Obsolete("First deprecated in 15.4.0 - use method stopTempoTrackingWithCompletion: instead")]
         [Export("stopTempoTracking")]
         void StopTempoTracking();
 
@@ -317,6 +343,7 @@ namespace PointSDK.iOS
     interface BDPAuthenticationStateProvider
     {
         // @required @property (readonly) BDAuthenticationState authenticationState __attribute__((deprecated("First deprecated in 15.4.0 - This will be removed in future version")));
+        [Obsolete("First deprecated in 15.4.0 - This will be removed in future version")]
         [Abstract]
         [Export("authenticationState")]
         BDAuthenticationState AuthenticationState { get; }
@@ -666,6 +693,7 @@ namespace PointSDK.iOS
         NSSet Fences { get; }
 
         // @property (readonly, copy) NSSet<BDBeaconInfo *> * beacons __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - This will be removed in future version")]
         [Export("beacons", ArgumentSemantic.Copy)]
         NSSet Beacons { get; }
 
@@ -764,18 +792,22 @@ namespace PointSDK.iOS
         //string ID { get; }
 
         // @property (readonly, copy) NSString * proximityUuid __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Export("proximityUuid")]
         string ProximityUuid { get; }
 
         // @property (readonly) NSUInteger major __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Export("major")]
         nuint Major { get; }
 
         // @property (readonly) NSUInteger minor __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Export("minor")]
         nuint Minor { get; }
 
         // @property (readonly) CLLocationCoordinate2D location __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
+        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
         [Export("location")]
         CLLocationCoordinate2D Location { get; }
 
@@ -889,11 +921,13 @@ namespace PointSDK.iOS
     interface BDPRestartAlertDelegate
     {
         // @required -(NSString *)restartAlertTitle __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `BDLocationManager.-startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature migrated to startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:")]
         [Abstract]
         [Export("restartAlertTitle")]
         string RestartAlertTitle();
 
         // @optional -(NSString *)restartButtonText __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `BDLocationManager.-startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:`")));
+        [Obsolete("First deprecated in 15.4.0 - Feature migrated to startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:")]
         [Export("restartButtonText")]
         string RestartButtonText();
     }
