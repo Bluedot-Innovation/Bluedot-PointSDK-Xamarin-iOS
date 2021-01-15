@@ -1,4 +1,4 @@
-platform :ios, '12.2'
+platform :ios, '13.0'
 install! 'cocoapods', :integrate_targets => false
 target 'ObjectiveSharpieIntegration' do
   use_frameworks!
