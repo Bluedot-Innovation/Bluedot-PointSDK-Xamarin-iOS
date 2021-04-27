@@ -27,6 +27,8 @@ public enum BDServiceError : nint
 	InvalidProjectId = -1001,
 	AccessDenied = -1002,
 	StorageFull = -1003,
+	NotificationPermissionNotGranted = -1004,
+	SDKAlreadyInitialized = -1005,
 	FailedToConnect = -2000,
 	FailedToRetrieveRemoteConfiguration = -2001,
 	FailedToRetrieveGlobalConfig = -2002
@@ -45,11 +47,12 @@ public enum BDTempoError : nint
 [Native]
 public enum BDGeoTriggeringError : nint
 {
-	CannotStartWhileAlreadyInProgress = -1000,
-	CannotStopWhileNotInProgress = -1001,
-	InsufficientLocationPermission = -1002,
-	CannotStartWhileApplicationInBackground = -1003,
-	ZoneDownloadFailed = -1004
+	ErrorCannotStartWhileAlreadyInProgress = -1000,
+	ErrorCannotStopWhileNotInProgress = -1001,
+	ErrorInsufficientLocationPermission = -1002,
+	ErrorCannotStartWhileApplicationInBackground = -1003,
+	ErrorZoneDownloadFailed = -1004,
+	InsufficientNotificationPermission = -1005
 }
 
 [Native]
