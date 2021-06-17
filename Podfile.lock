@@ -1,5 +1,5 @@
 PODS:
-  - BluedotPointSDK (15.5.0)
+  - BluedotPointSDK (15.5.1)
 
 DEPENDENCIES:
   - BluedotPointSDK
@@ -9,7 +9,7 @@ SPEC REPOS:
     - BluedotPointSDK
 
 SPEC CHECKSUMS:
-  BluedotPointSDK: 80cf063a01416bf870c79791a12c264d30ff7ac7
+  BluedotPointSDK: bdf104d496328c9bedf138395073a9486b0bcf2e
 
 PODFILE CHECKSUM: 0cd9f2e217a2704ef38ef20c5e620deccc484cad
 
