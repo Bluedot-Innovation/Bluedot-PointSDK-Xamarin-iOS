@@ -23,7 +23,7 @@ Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuG
 
     This will update bindings in the `/Bindings` folder
 
-3. `git diff` bindings with the previous version. If there are significunt changes in the API, it will be visible in the diff and project classes will require updating. Otherwise, project classes remain the same.
+3. `git diff` bindings with the previous version. If there are significant changes in the API, it will be visible in the diff and project classes will require updating. Otherwise, project classes remain the same.
 
 4. Open solution and perform required changes to wrapper API.
 

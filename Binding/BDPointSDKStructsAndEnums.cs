@@ -1,11 +1,10 @@
-using System;
 using System.Runtime.InteropServices;
 using BDPointSDK;
 using Foundation;
 using ObjCRuntime;
 
 [Native]
-public enum BDAuthenticationState : nint
+public enum BDAuthenticationState : long
 {
 	NotAuthenticated,
 	Authenticating,
@@ -21,7 +20,7 @@ static class CFunctions
 }
 
 [Native]
-public enum BDServiceError : nint
+public enum BDServiceError : long
 {
 	SDKNotInitialized = -1000,
 	InvalidProjectId = -1001,
@@ -29,13 +28,15 @@ public enum BDServiceError : nint
 	StorageFull = -1003,
 	NotificationPermissionNotGranted = -1004,
 	SDKAlreadyInitialized = -1005,
+	MissingLocation = -1006,
 	FailedToConnect = -2000,
 	FailedToRetrieveRemoteConfiguration = -2001,
-	FailedToRetrieveGlobalConfig = -2002
+	FailedToRetrieveGlobalConfig = -2002,
+	FailedToRetrieveRuleSet = -2003
 }
 
 [Native]
-public enum BDTempoError : nint
+public enum BDTempoError : long
 {
 	CannotStartWhileAlreadyInProgress = -1000,
 	CannotStopWhileNotInProgress = -1001,
@@ -45,7 +46,7 @@ public enum BDTempoError : nint
 }
 
 [Native]
-public enum BDGeoTriggeringError : nint
+public enum BDGeoTriggeringError : long
 {
 	ErrorCannotStartWhileAlreadyInProgress = -1000,
 	ErrorCannotStopWhileNotInProgress = -1001,
@@ -56,7 +57,7 @@ public enum BDGeoTriggeringError : nint
 }
 
 [Native]
-public enum BDAuthorizationLevel : nint
+public enum BDAuthorizationLevel : long
 {
 	Always,
 	WhenInUse
