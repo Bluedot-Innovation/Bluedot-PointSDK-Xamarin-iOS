@@ -43,3 +43,13 @@ There is a Integration sample at `git@github.com:Bluedot-Innovation/PointSDK-Xam
 4. Select desired version of **Bluedot.PointSDK.iOS** and press **Add Package**
 
 5. Update the **APIKey** in ViewController.cs and run the project.
+
+## Releasing
+
+1. Open solution in Visual Studio
+
+2. Build the project with `release` configuration. It will produce `Bluedot.PointSDK.iOS.X.Y.Z.nupkg` in `/PointSDK.iOS/bin/Release/`.
+
+3. Go to `https://www.nuget.org/packages/Bluedot.PointSDK.iOS` and login to Bluedot account.
+
+4. Upload `Bluedot.PointSDK.iOS.X.Y.Z.nupkg` from `PointSDK.iOS/bin/Release`
