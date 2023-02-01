@@ -31,6 +31,13 @@ Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuG
 
 6. Build the project with `release` configuration. It will produce `Bluedot.PointSDK.iOS.X.Y.Z.nupkg` in `/PointSDK.iOS/bin/Release/`.
 
+Notes: If run into this error: 
+`framework requires SDK 'iphoneos15.0' which is not installed. You may need a newer Xcode.`
+
+Go to `./Pods/BluedotPointSDK/PointSDK/BDPointSDK.framework`. Open `Info.plist` and update `DTSDKName` to current `iphoneos**` version and `DTPlatformVersion` accordingly.
+
+`https://stackoverflow.com/questions/39048954/objective-sharpie-does-not-see-older-iphone-sdks-when-using-iphoneos-9-3?rq=1`
+
 ## Validating
 There is a Integration sample at `git@github.com:Bluedot-Innovation/PointSDK-Xamarin-minimal-app-iOS.git`. The clone is a primary source of any modifications.
 

@@ -12,7 +12,7 @@
     <AssemblyName>PointSDK.iOS</AssemblyName>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
-    <PackageVersion>15.6.5</PackageVersion>
+    <PackageVersion>15.6.6-beta-1</PackageVersion>
     <Authors>Bluedot</Authors>
     <Copyright>Bluedot</Copyright>
     <PackageIconUrl>https://bluedot.io/wp-content/uploads/2020/04/logo_lg.png</PackageIconUrl>
