@@ -2,21 +2,15 @@ PODS:
   - BluedotPointSDK (15.6.6)
 
 DEPENDENCIES:
-  - "BluedotPointSDK (from `git@github.com:Bluedot-Innovation/PointSDK-iOS.git`, tag `15.6.6-beta-1`)"
+  - BluedotPointSDK
 
-EXTERNAL SOURCES:
-  BluedotPointSDK:
-    :git: "git@github.com:Bluedot-Innovation/PointSDK-iOS.git"
-    :tag: 15.6.6-beta-1
-
-CHECKOUT OPTIONS:
-  BluedotPointSDK:
-    :git: "git@github.com:Bluedot-Innovation/PointSDK-iOS.git"
-    :tag: 15.6.6-beta-1
+SPEC REPOS:
+  trunk:
+    - BluedotPointSDK
 
 SPEC CHECKSUMS:
   BluedotPointSDK: 69f0c00e8ceb68e0508e95c7756544d0fec6fc2e
 
-PODFILE CHECKSUM: 43dc1f4c582e4ab9481ebf008a67493b47b29711
+PODFILE CHECKSUM: 0cd9f2e217a2704ef38ef20c5e620deccc484cad
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
