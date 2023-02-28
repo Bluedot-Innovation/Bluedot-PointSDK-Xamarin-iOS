@@ -1,3 +1,3 @@
 # Release Notes
 
-- Update to iOS Point SDK 15.6.5
+- Update to iOS Point SDK 15.6.6
