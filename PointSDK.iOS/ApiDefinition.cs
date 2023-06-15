@@ -77,10 +77,6 @@ namespace PointSDK.iOS
         [Export("name")]
         string Name { get; }
 
-        // @property (readonly, copy) NSString * _Nonnull description;
-        [Export("description")]
-        string Description { get; }
-
         // @property (readonly, copy) NSString * _Nonnull ID;
         [Export("ID")]
         string ID { get; }
@@ -150,10 +146,9 @@ namespace PointSDK.iOS
         [NullAllowed, Export("geoTriggeringEventDelegate", ArgumentSemantic.Assign)]
         NSObject WeakGeoTriggeringEventDelegate { get; set; }
 
-        //// @property (readonly, nonatomic) NSSet<BDZoneInfo *> * zoneInfos;
-        //[Export("zoneInfos")]
-        //NSSet<BDZoneInfo> ZoneInfos { get; }
-#warning danny check here
+        // @property (readonly, nonatomic) NSSet<BDZoneInfo *> * zoneInfos;
+        [Export("zoneInfos")]
+        NSSet ZoneInfos { get; }
 
         // @property (nonatomic) BOOL backgroundLocationAccessForWhileUsing;
         [Export("backgroundLocationAccessForWhileUsing")]
@@ -178,7 +173,6 @@ namespace PointSDK.iOS
         // -(NSDictionary *)customEventMetaData;
         // -(void)setCustomEventMetaData:(NSDictionary *)data;
         [Export("customEventMetaData")]
-        
         NSDictionary CustomEventMetaData { get; set; }
 
         // -(void)startGeoTriggeringWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
@@ -191,7 +185,6 @@ namespace PointSDK.iOS
 
         // -(BOOL)isGeoTriggeringRunning;
         [Export("isGeoTriggeringRunning")]
-        
         bool IsGeoTriggeringRunning { get; }
 
         // -(void)stopGeoTriggeringWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
@@ -208,7 +201,6 @@ namespace PointSDK.iOS
 
         // -(BOOL)isTempoRunning;
         [Export("isTempoRunning")]
-        
         bool IsTempoRunning { get; }
 
         // -(void)authorizationChangedWithManager:(CLLocationManager * _Nonnull)manager status:(CLAuthorizationStatus)status;
@@ -224,7 +216,6 @@ namespace PointSDK.iOS
         // @required -(id)deepCopy;
         [Abstract]
         [Export("deepCopy")]
-        
         NSObject DeepCopy { get; }
     }
 
@@ -245,13 +236,11 @@ namespace PointSDK.iOS
         // @required -(BDBoundingBox *)boundingBox;
         [Abstract]
         [Export("boundingBox")]
-        
         BDBoundingBox BoundingBox { get; }
 
         // @required -(BDPoint *)centroid;
         [Abstract]
         [Export("centroid")]
-        
         BDPoint Centroid { get; }
 
         // @required -(BDLocationDistance)distanceTo:(BDGeometry *)geometry;
@@ -262,7 +251,6 @@ namespace PointSDK.iOS
         // @required -(BDGeometryType)geometryType;
         [Abstract]
         [Export("geometryType")]
-        
         string GeometryType { get; }
     }
 
@@ -336,7 +324,6 @@ namespace PointSDK.iOS
 
         // -(MKCoordinateRegion)coordinateRegion;
         [Export("coordinateRegion")]
-        
         MKCoordinateRegion CoordinateRegion { get; }
 
         // -(BDLocationDegrees)west;
@@ -462,7 +449,6 @@ namespace PointSDK.iOS
     {
         // -(NSUInteger)vertexCount;
         [Export("vertexCount")]
-        
         nuint VertexCount { get; }
 
         // -(void)addVertex:(BDPoint *)vertex;
@@ -475,7 +461,6 @@ namespace PointSDK.iOS
 
         // -(BOOL)isClosed;
         [Export("isClosed")]
-        
         bool IsClosed { get; }
     }
 
@@ -594,20 +579,10 @@ namespace PointSDK.iOS
         [Export("name")]
         string Name { get; }
 
-        // @required @property (readonly, copy) NSString * description;
-        [Abstract]
-        [Export("description")]
-        string Description { get; }
-
         // @required @property (readonly, copy) NSString * ID;
         [Abstract]
         [Export("ID")]
         string ID { get; }
-
-        // @required @property (readonly) BDGeometry * geometry;
-        [Abstract]
-        [Export("geometry")]
-        new BDGeometry Geometry { get; }
     }
 
     // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSSecureCoding>
@@ -617,10 +592,6 @@ namespace PointSDK.iOS
         // @property (readonly, copy) NSString * name;
         [Export("name")]
         new string Name { get; }
-
-        // @property (readonly, copy) NSString * description;
-        [Export("description")]
-        new string Description { get; }
 
         // @property (readonly, copy) NSString * ID;
         [Export("ID")]
@@ -666,21 +637,6 @@ namespace PointSDK.iOS
         NSException ExceptionWithReason(string reason);
     }
 
-    // @protocol BDPNamedDescribed
-    [Protocol]
-    interface BDPNamedDescribed
-    {
-        // @required @property (copy) NSString * name;
-        [Abstract]
-        [Export("name")]
-        string Name { get; set; }
-
-        // @required @property (readwrite, copy) NSString * description;
-        [Abstract]
-        [Export("description")]
-        string Description { get; set; }
-    }
-
     // @interface AppInfo : NSObject
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
@@ -709,10 +665,6 @@ namespace PointSDK.iOS
         // -(instancetype _Nonnull)initWithMetaData:(NSDictionary<NSString *,NSString *> * _Nonnull)metaData;
         [Export("initWithMetaData:")]
         IntPtr Constructor(NSDictionary<NSString, NSString> metaData);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
 
         // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
         [Export("toJson:")]
@@ -782,10 +734,6 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface CrossedFence : NSObject
@@ -818,18 +766,6 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // @property (readonly, copy, nonatomic) NSString * _Nonnull description;
-        [Export("description")]
-        string Description { get; }
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
-
-        // @property (readonly, nonatomic) NSUInteger hash;
-        [Export("hash")]
-        nuint Hash { get; }
     }
 
     // @interface Destination : NSObject
@@ -874,14 +810,6 @@ namespace PointSDK.iOS
         // -(NSDictionary * _Nullable)dictionaryRepresentation __attribute__((warn_unused_result("")));
         [NullAllowed, Export("dictionaryRepresentation")]
         NSDictionary DictionaryRepresentation { get; }
-
-        // @property (readonly, copy, nonatomic) NSString * _Nonnull description;
-        [Export("description")]
-        string Description { get; }
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface DeviceInfo : NSObject
@@ -905,10 +833,6 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
 
@@ -996,16 +920,12 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @protocol TriggerEvent <Event, NSCopying>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    interface TriggerEvent : Event, INSCopying
+    interface TriggerEvent : Event
     {
         // @required @property (readonly, copy, nonatomic) NSString * _Nonnull fenceName;
         [Abstract]
@@ -1089,10 +1009,6 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface GeoTriggerEvent : NSObject
@@ -1190,16 +1106,6 @@ namespace PointSDK.iOS
         IntPtr Constructor(AppState appState);
     }
 
-    // @interface BDPointSDK_Swift_919 (GeoTriggerStart)
-    [Category]
-    [BaseType(typeof(GeoTriggerStart))]
-    interface GeoTriggerStart_BDPointSDK_Swift_919
-    {
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
-    }
-
     // @interface GeoTriggerStop : NSObject <LifecycleEvent>
     [BaseType(typeof(NSObject))]
     [DisableDefaultCtor]
@@ -1232,10 +1138,6 @@ namespace PointSDK.iOS
         // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
         [Export("initWithAppState:")]
         IntPtr Constructor(AppState appState);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface OperatingSystemInfo : NSObject
@@ -1250,10 +1152,6 @@ namespace PointSDK.iOS
         // @property (readonly, copy, nonatomic) NSString * _Nonnull version;
         [Export("version")]
         string Version { get; }
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface SdkInit : NSObject <LifecycleEvent>
@@ -1288,10 +1186,6 @@ namespace PointSDK.iOS
         // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
         [Export("initWithAppState:")]
         IntPtr Constructor(AppState appState);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface SdkReset : NSObject <LifecycleEvent>
@@ -1326,10 +1220,6 @@ namespace PointSDK.iOS
         // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
         [Export("initWithAppState:")]
         IntPtr Constructor(AppState appState);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @protocol TempoEvent <Event>
@@ -1385,14 +1275,6 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // @property (readonly, copy, nonatomic) NSString * _Nonnull description;
-        [Export("description")]
-        string Description { get; }
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
 
     // @interface TempoUpdate : NSObject <TempoEvent>
@@ -1459,154 +1341,5 @@ namespace PointSDK.iOS
         [Export("toJson:")]
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
-
-        // -(BOOL)isEqual:(id _Nullable)object __attribute__((warn_unused_result("")));
-        [Export("isEqual:")]
-        bool IsEqual([NullAllowed] NSObject @object);
     }
-
-    [Native]
-    public enum BDServiceError : long
-    {
-        SDKNotInitialized = -1000,
-        InvalidProjectId = -1001,
-        AccessDenied = -1002,
-        StorageFull = -1003,
-        NotificationPermissionNotGranted = -1004,
-        SDKAlreadyInitialized = -1005,
-        MissingLocation = -1006,
-        FailedToConnect = -2000,
-        FailedToRetrieveRemoteConfiguration = -2001,
-        FailedToRetrieveGlobalConfig = -2002,
-        FailedToRetrieveRuleSet = -2003
-    }
-
-    [Native]
-    public enum BDTempoError : long
-    {
-        CannotStartWhileAlreadyInProgress = -1000,
-        CannotStopWhileNotInProgress = -1001,
-        InvalidDestinationId = -1002,
-        InsufficientLocationPermission = -1003,
-        CannotStartWhileApplicationInBackground = -1004,
-        SDKHasBeenReset = -1005,
-        UnexpectedError = -1006,
-        TempoNotEnabled = -1007
-    }
-
-    [Native]
-    public enum BDGeoTriggeringError : long
-    {
-        ErrorCannotStartWhileAlreadyInProgress = -1000,
-        ErrorCannotStopWhileNotInProgress = -1001,
-        ErrorInsufficientLocationPermission = -1002,
-        ErrorCannotStartWhileApplicationInBackground = -1003,
-        ErrorZoneDownloadFailed = -1004,
-        InsufficientNotificationPermission = -1005
-    }
-
-    [Native]
-    public enum DisableBackgroundLocation : long
-    {
-        Bd = 0,
-        None = 1
-    }
-
-    [Native]
-    public enum EventType : long
-    {
-        FenceEntered = 0,
-        FenceExited = 1,
-        TempoUpdate = 2,
-        TempoStop = 3,
-        SdkInit = 4,
-        SdkReset = 5,
-        GeoTriggerStart = 6,
-        GeoTriggerStop = 7
-    }
-
-    [Native]
-    public enum KeychainKeys : long
-    {
-        Api = 0,
-        Url = 1,
-        PointApiUrl = 2,
-        InstallRef = 3
-    }
-
-    [Native]
-    public enum LogLevel : long
-    {
-        Debug = 0,
-        Info = 1,
-        Notice = 2,
-        Warn = 3,
-        Error = 4,
-        Critical = 5
-    }
-
-    [Native]
-    public enum NotificationType : long
-    {
-        Entry = 0,
-        Exit = 1,
-        Tempo = 2,
-        Lifecycle = 3,
-        Unknown = 4
-    }
-
-    [Native]
-    public enum SDKApplicationState : long
-    {
-        Active = 0,
-        Background = 1
-    }
-
-    [Native]
-    public enum SqliteURL : long
-    {
-        Old = 0,
-        New = 1
-    }
-
-    [Native]
-    public enum TempoStopReason : long
-    {
-        InvalidDestinationId = 0,
-        StoppedByCustomerApp = 1,
-        SdkLogout = 2,
-        Expired = 3,
-        TempoNotEnabled = 4
-    }
-
-    [Native]
-    public enum TempoUpdateETADirection : long
-    {
-        LessThan = 0,
-        GreaterThan = 1,
-        Unknown = -1
-    }
-
-    [Native]
-    public enum TriggerEngine : long
-    {
-        Bd = 0,
-        Native = 1
-    }
-
-    [Native]
-    public enum UseCaseType : long
-    {
-        Retail = 0,
-        None = 1
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct BDLocationCoordinate2D
-    {
-        public double latitude;
-
-        public double longitude;
-    }
-
 }
