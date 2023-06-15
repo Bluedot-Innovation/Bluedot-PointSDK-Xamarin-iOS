@@ -1,23 +1,4 @@
-using System.Runtime.InteropServices;
-using BDPointSDK;
-using Foundation;
 using ObjCRuntime;
-
-[Native]
-public enum BDAuthenticationState : long
-{
-	NotAuthenticated,
-	Authenticating,
-	Authenticated
-}
-
-static class CFunctions
-{
-	// extern NSString * BDStringFromAuthenticationState (BDAuthenticationState state) __attribute__((deprecated("First deprecated in 15.4.0 - This will be removed in future version")));
-	[DllImport ("__Internal")]
-	[Verify (PlatformInvoke)]
-	static extern NSString BDStringFromAuthenticationState (BDAuthenticationState state);
-}
 
 [Native]
 public enum BDServiceError : long
@@ -42,7 +23,10 @@ public enum BDTempoError : long
 	CannotStopWhileNotInProgress = -1001,
 	InvalidDestinationId = -1002,
 	InsufficientLocationPermission = -1003,
-	CannotStartWhileApplicationInBackground = -1004
+	CannotStartWhileApplicationInBackground = -1004,
+	SDKHasBeenReset = -1005,
+	UnexpectedError = -1006,
+	TempoNotEnabled = -1007
 }
 
 [Native]
@@ -57,8 +41,97 @@ public enum BDGeoTriggeringError : long
 }
 
 [Native]
-public enum BDAuthorizationLevel : long
+public enum DisableBackgroundLocation : long
 {
-	Always,
-	WhenInUse
+	Bd = 0,
+	None = 1
+}
+
+[Native]
+public enum EventType : long
+{
+	FenceEntered = 0,
+	FenceExited = 1,
+	TempoUpdate = 2,
+	TempoStop = 3,
+	SdkInit = 4,
+	SdkReset = 5,
+	GeoTriggerStart = 6,
+	GeoTriggerStop = 7
+}
+
+[Native]
+public enum KeychainKeys : long
+{
+	Api = 0,
+	Url = 1,
+	PointApiUrl = 2,
+	InstallRef = 3
+}
+
+[Native]
+public enum LogLevel : long
+{
+	Debug = 0,
+	Info = 1,
+	Notice = 2,
+	Warn = 3,
+	Error = 4,
+	Critical = 5
+}
+
+[Native]
+public enum NotificationType : long
+{
+	Entry = 0,
+	Exit = 1,
+	Tempo = 2,
+	Lifecycle = 3,
+	Unknown = 4
+}
+
+[Native]
+public enum SDKApplicationState : long
+{
+	Active = 0,
+	Background = 1
+}
+
+[Native]
+public enum SqliteURL : long
+{
+	Old = 0,
+	New = 1
+}
+
+[Native]
+public enum TempoStopReason : long
+{
+	InvalidDestinationId = 0,
+	StoppedByCustomerApp = 1,
+	SdkLogout = 2,
+	Expired = 3,
+	TempoNotEnabled = 4
+}
+
+[Native]
+public enum TempoUpdateETADirection : long
+{
+	LessThan = 0,
+	GreaterThan = 1,
+	Unknown = -1
+}
+
+[Native]
+public enum TriggerEngine : long
+{
+	Bd = 0,
+	Native = 1
+}
+
+[Native]
+public enum UseCaseType : long
+{
+	Retail = 0,
+	None = 1
 }

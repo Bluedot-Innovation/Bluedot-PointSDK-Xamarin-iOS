@@ -51,12 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StructsAndEnums.cs" />
   </ItemGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NuGet.Build.Packaging">
@@ -67,12 +65,12 @@
     <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport">
       <Version>0.2.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2578</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="packages.config" />
-    <BundleResource Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework\BDDataModel.momd\VersionInfo.plist">
-      <Link>VersionInfo.plist</Link>
-    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <NativeReference Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework">
