@@ -64,9 +64,6 @@
     <PackageReference Include="Xamarin.iOS.SwiftRuntimeSupport">
       <Version>0.2.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2578</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="packages.config" />
