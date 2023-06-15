@@ -164,11 +164,11 @@ namespace PointSDK.iOS
 
         // -(NSString *)installRef;
         [Export("installRef")]
-        string InstallRef { get; }
+        string InstallRef();
 
         // -(NSString *)sdkVersion;
         [Export("sdkVersion")]
-        string SdkVersion { get; }
+        string SdkVersion();
 
         // -(NSDictionary *)customEventMetaData;
         // -(void)setCustomEventMetaData:(NSDictionary *)data;
