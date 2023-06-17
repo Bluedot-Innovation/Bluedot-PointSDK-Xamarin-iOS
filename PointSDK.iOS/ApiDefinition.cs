@@ -71,6 +71,7 @@ namespace PointSDK.iOS
 
     // @interface BDZoneInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface BDZoneInfo
     {
         // @property (readonly, copy) NSString * _Nonnull name;
@@ -100,6 +101,7 @@ namespace PointSDK.iOS
 
     // @interface BDLocationManager : CLLocationManager
     [BaseType(typeof(CLLocationManager))]
+    [Protocol]
     interface BDLocationManager
     {
         // +(BDLocationManager *)instance;
@@ -291,6 +293,7 @@ namespace PointSDK.iOS
 
     // @interface BDGeometry : NSObject <BDPGeometry>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface BDGeometry : BDPGeometry
     {
     }
@@ -587,6 +590,7 @@ namespace PointSDK.iOS
 
     // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSSecureCoding>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface BDFenceInfo : BDPSpatialObjectInfo, INSSecureCoding
     {
         // @property (readonly, copy) NSString * name;
@@ -604,6 +608,7 @@ namespace PointSDK.iOS
 
     // @interface BDLocationInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface BDLocationInfo
     {
         // @property (readonly, copy) NSDate * timestamp;
@@ -629,6 +634,7 @@ namespace PointSDK.iOS
 
     // @interface BDPointSessionException : NSException
     [BaseType(typeof(NSException))]
+    [Protocol]
     interface BDPointSessionException
     {
         // +(NSException *)exceptionWithReason:(NSString *)reason;
@@ -639,6 +645,7 @@ namespace PointSDK.iOS
 
     // @interface AppInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface AppInfo
     {
@@ -671,9 +678,10 @@ namespace PointSDK.iOS
         [return: NullAllowed]
         string ToJson([NullAllowed] out NSError error);
     }
-    
+
     // @interface AppRestartNotificationConfiguration : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface AppRestartNotificationConfiguration
     {
         // @property (readonly, nonatomic) BOOL requiresAppRestartNotification;
@@ -699,6 +707,7 @@ namespace PointSDK.iOS
 
     // @interface AppState : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface AppState
     {
@@ -738,6 +747,7 @@ namespace PointSDK.iOS
 
     // @interface CrossedFence : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface CrossedFence
     {
@@ -770,6 +780,7 @@ namespace PointSDK.iOS
 
     // @interface Destination : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface Destination
     {
@@ -814,6 +825,7 @@ namespace PointSDK.iOS
 
     // @interface DeviceInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface DeviceInfo
     {
@@ -869,6 +881,7 @@ namespace PointSDK.iOS
 
     // @interface FenceEntered : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface FenceEntered
     {
@@ -950,6 +963,7 @@ namespace PointSDK.iOS
    
     // @interface FenceExited : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface FenceExited
     {
@@ -1013,6 +1027,7 @@ namespace PointSDK.iOS
 
     // @interface GeoTriggerEvent : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface GeoTriggerEvent
     {
@@ -1074,6 +1089,7 @@ namespace PointSDK.iOS
 
     // @interface GeoTriggerStart : NSObject <LifecycleEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface GeoTriggerStart : LifecycleEvent
     {
@@ -1108,6 +1124,7 @@ namespace PointSDK.iOS
 
     // @interface GeoTriggerStop : NSObject <LifecycleEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface GeoTriggerStop : LifecycleEvent
     {
@@ -1142,6 +1159,7 @@ namespace PointSDK.iOS
 
     // @interface OperatingSystemInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface OperatingSystemInfo
     {
@@ -1156,6 +1174,7 @@ namespace PointSDK.iOS
 
     // @interface SdkInit : NSObject <LifecycleEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface SdkInit : LifecycleEvent
     {
@@ -1190,6 +1209,7 @@ namespace PointSDK.iOS
 
     // @interface SdkReset : NSObject <LifecycleEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface SdkReset : LifecycleEvent
     {
@@ -1234,6 +1254,7 @@ namespace PointSDK.iOS
 
     // @interface TempoStop : NSObject <TempoEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface TempoStop : TempoEvent
     {
@@ -1268,6 +1289,7 @@ namespace PointSDK.iOS
 
     // @interface TempoTrackingUpdate : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface TempoTrackingUpdate
     {
@@ -1279,6 +1301,7 @@ namespace PointSDK.iOS
 
     // @interface TempoUpdate : NSObject <TempoEvent>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface TempoUpdate : TempoEvent
     {
@@ -1313,6 +1336,7 @@ namespace PointSDK.iOS
 
     // @interface ZoneInfo : NSObject
     [BaseType(typeof(NSObject))]
+    [Protocol]
     [DisableDefaultCtor]
     interface ZoneInfo
     {
