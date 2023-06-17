@@ -71,7 +71,6 @@ namespace PointSDK.iOS
 
     // @interface BDZoneInfo : NSObject
     [BaseType(typeof(NSObject))]
-    [Protocol]
     interface BDZoneInfo
     {
         // @property (readonly, copy) NSString * _Nonnull name;
@@ -101,7 +100,6 @@ namespace PointSDK.iOS
 
     // @interface BDLocationManager : CLLocationManager
     [BaseType(typeof(CLLocationManager))]
-    [Protocol]
     interface BDLocationManager
     {
         // +(BDLocationManager *)instance;
@@ -590,7 +588,6 @@ namespace PointSDK.iOS
 
     // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSSecureCoding>
     [BaseType(typeof(NSObject))]
-    [Protocol]
     interface BDFenceInfo : BDPSpatialObjectInfo, INSSecureCoding
     {
         // @property (readonly, copy) NSString * name;
@@ -608,7 +605,6 @@ namespace PointSDK.iOS
 
     // @interface BDLocationInfo : NSObject
     [BaseType(typeof(NSObject))]
-    [Protocol]
     interface BDLocationInfo
     {
         // @property (readonly, copy) NSDate * timestamp;
@@ -634,7 +630,6 @@ namespace PointSDK.iOS
 
     // @interface BDPointSessionException : NSException
     [BaseType(typeof(NSException))]
-    [Protocol]
     interface BDPointSessionException
     {
         // +(NSException *)exceptionWithReason:(NSString *)reason;
