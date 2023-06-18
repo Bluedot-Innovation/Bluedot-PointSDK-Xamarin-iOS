@@ -147,7 +147,7 @@ namespace PointSDK.iOS
         NSObject WeakGeoTriggeringEventDelegate { get; set; }
 
         // @property (readonly, nonatomic) NSSet<BDZoneInfo *> * zoneInfos;
-        [Export("zoneInfos")]
+        [NullAllowed, Export("zoneInfos")]
         NSSet ZoneInfos { get; }
 
         // @property (nonatomic) BOOL backgroundLocationAccessForWhileUsing;
@@ -1288,6 +1288,22 @@ namespace PointSDK.iOS
     [DisableDefaultCtor]
     interface TempoTrackingUpdate
     {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull triggerChainId;
+        [Export ("triggerChainId")]
+        string TriggerChainId { get; }
+
+        // @property (readonly, nonatomic) NSInteger eta;
+        [Export ("eta")]
+        nint Eta { get; }
+
+        // @property (readonly, nonatomic) enum TempoUpdateETADirection etaDirection;
+        [Export ("etaDirection")]
+        TempoUpdateETADirection EtaDirection { get; }
+
+        // @property (readonly, nonatomic, strong) Destination * _Nullable destination;
+        [NullAllowed, Export ("destination", ArgumentSemantic.Strong)]
+        Destination Destination { get; }
+
         // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
         [Export("toJson:")]
         [return: NullAllowed]
