@@ -41,13 +41,6 @@ public enum BDGeoTriggeringError : long
 }
 
 [Native]
-public enum DisableBackgroundLocation : long
-{
-	Bd = 0,
-	None = 1
-}
-
-[Native]
 public enum EventType : long
 {
 	FenceEntered = 0,
@@ -61,26 +54,6 @@ public enum EventType : long
 }
 
 [Native]
-public enum KeychainKeys : long
-{
-	Api = 0,
-	Url = 1,
-	PointApiUrl = 2,
-	InstallRef = 3
-}
-
-[Native]
-public enum LogLevel : long
-{
-	Debug = 0,
-	Info = 1,
-	Notice = 2,
-	Warn = 3,
-	Error = 4,
-	Critical = 5
-}
-
-[Native]
 public enum NotificationType : long
 {
 	Entry = 0,
@@ -88,20 +61,6 @@ public enum NotificationType : long
 	Tempo = 2,
 	Lifecycle = 3,
 	Unknown = 4
-}
-
-[Native]
-public enum SDKApplicationState : long
-{
-	Active = 0,
-	Background = 1
-}
-
-[Native]
-public enum SqliteURL : long
-{
-	Old = 0,
-	New = 1
 }
 
 [Native]
@@ -127,11 +86,4 @@ public enum TriggerEngine : long
 {
 	Bd = 0,
 	Native = 1
-}
-
-[Native]
-public enum UseCaseType : long
-{
-	Retail = 0,
-	None = 1
 }
