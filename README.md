@@ -11,15 +11,15 @@ This repository contains a project to make a C# wrapper for PointSDK.iOS framewo
 ## Building
 Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuGets. However, in the future it requires an update.
 
-1. Update cocoapods by using the following command
+1. Update Carthage by using the following command
     
-        pod update
+        carthage update
 
-    It will checkout the latest SDK into `Pods/BluedotPointSDK/PointSDK`
+    It will checkout the latest SDK into `Carthage/Build/iOS`
 
 2. Update C# binding
 
-        sharpie bind -f ./Pods/BluedotPointSDK/PointSDK/BDPointSDK.framework -o ./Binding -p BDPointSDK
+        sharpie bind -f ./Carthage/Build/iOS/BDPointSDK.framework -o ./Binding -p BDPointSDK
 
     This will update bindings in the `/Bindings` folder
 
@@ -34,7 +34,7 @@ Below are basic steps to build a wrapper. Currently it uses `Xamarin.Swift4` NuG
 Notes: If run into this error: 
 `framework requires SDK 'iphoneos15.0' which is not installed. You may need a newer Xcode.`
 
-Go to `./Pods/BluedotPointSDK/PointSDK/BDPointSDK.framework`. Open `Info.plist` and update `DTSDKName` to current `iphoneos**` version and `DTPlatformVersion` accordingly.
+Go to `./Carthage/Build/iOS/BDPointSDK.framework`. Open `Info.plist` and update `DTSDKName` to current `iphoneos**` version and `DTPlatformVersion` accordingly.
 
 `https://stackoverflow.com/questions/39048954/objective-sharpie-does-not-see-older-iphone-sdks-when-using-iphoneos-9-3?rq=1`
 

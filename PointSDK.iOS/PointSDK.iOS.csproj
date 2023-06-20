@@ -12,7 +12,7 @@
     <AssemblyName>PointSDK.iOS</AssemblyName>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <PackageId>Bluedot.PointSDK.iOS</PackageId>
-    <PackageVersion>15.6.6</PackageVersion>
+    <PackageVersion>16.0.0-rc4</PackageVersion>
     <Authors>Bluedot</Authors>
     <Copyright>Bluedot</Copyright>
     <PackageIconUrl>https://bluedot.io/wp-content/uploads/2020/04/logo_lg.png</PackageIconUrl>
@@ -53,12 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ObjcBindingCoreSource Include="Structs.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="NuGet.Build.Packaging">
       <Version>0.2.2</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -70,12 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="packages.config" />
-    <BundleResource Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework\BDDataModel.momd\VersionInfo.plist">
-      <Link>VersionInfo.plist</Link>
-    </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\Pods\BluedotPointSDK\PointSDK\BDPointSDK.framework">
+    <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <NativeReference Include="..\Carthage\Build\iOS\BDPointSDK.framework">
       <Kind>Framework</Kind>
       <SmartLink>False</SmartLink>
     </NativeReference>

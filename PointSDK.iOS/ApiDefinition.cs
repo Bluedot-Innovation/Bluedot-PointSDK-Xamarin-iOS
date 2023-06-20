@@ -1,112 +1,17 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using CoreData;
 using CoreGraphics;
 using CoreLocation;
 using Foundation;
 using MapKit;
 using ObjCRuntime;
+using UserNotifications;
 
 namespace PointSDK.iOS
 {
-
-    // @protocol BDPTempoTrackingDelegate <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    interface IBDPTempoTrackingDelegate
-    {
-        // @optional -(void)tempoTrackingDidExpire;
-        [Export("tempoTrackingDidExpire")]
-        void TempoTrackingDidExpire();
-
-        // @optional -(void)didStartTracking __attribute__((deprecated("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to `BDLocationManager.-startTempoTrackingWithDestinationId:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to startTempoTrackingWithDestinationId:completion:")]
-        [Export("didStartTracking")]
-        void DidStartTracking();
-
-        // @optional -(void)didStopTracking __attribute__((deprecated("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to `BDLocationManager.-stopTempoTrackingWithCompletion:`. However, if tempo tracking expires, `tempoTrackingdidExpire` will be called instead")));
-        [Obsolete("First deprecated in 15.4.0 - This is now deprecated in favor of completion callback. Please refer to stopTempoTrackingWithCompletion:. However, if tempo tracking expires, tempoTrackingdidExpire will be called instead")]
-        [Export("didStopTracking")]
-        void DidStopTracking();
-
-        // @required -(void)didStopTrackingWithError:(NSError *)error;
-        [Abstract]
-        [Export("didStopTrackingWithError:")]
-        void DidStopTrackingWithError(NSError error);
-    }
-
-    // @protocol BDPLocationDelegate <NSObject>
-    [Protocol, Model, Preserve]
-    [BaseType(typeof(NSObject))]
-    interface IBDPLocationDelegate
-    {
-        // @optional -(void)didUpdateZoneInfo:(NSSet *)zoneInfos __attribute__((deprecated("First deprecated in 15.4.0 - Features migrated to `-[BDPGeoTriggeringEventDelegate onZoneInfoUpdate:]` method")));
-        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, onZoneInfoUpdate method")]
-        [Abstract]
-        [Export("didUpdateZoneInfo:")]
-        void DidUpdateZoneInfo(NSSet zoneInfos);
-
-        // @optional -(void)didCheckIntoFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)location willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `-[BDPGeoTriggeringEventDelegate didEnterZone:]`")));
-        [Abstract]
-        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, didEnterZone method")]
-        [Export("didCheckIntoFence:inZone:atLocation:willCheckOut:withCustomData:")]
-        void DidCheckIntoFence(BDFenceInfo fence, BDZoneInfo zoneInfo, BDLocationInfo location, bool willCheckOut, NSDictionary customData);
-
-        // @optional -(void)didCheckOutFromFence:(BDFenceInfo *)fence inZone:(BDZoneInfo *)zoneInfo onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `-[BDPGeoTriggeringEventDelegate didExitZone:]`")));
-        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPGeoTriggeringEventDelegate, didExitZone method")]
-        [Abstract]
-        [Export("didCheckOutFromFence:inZone:onDate:withDuration:withCustomData:")]
-        void DidCheckOutFromFence(BDFenceInfo fence, BDZoneInfo zoneInfo, NSDate date, nuint checkedInDuration, NSDictionary customData);
-
-        // @optional -(void)didCheckIntoBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo atLocation:(BDLocationInfo *)locationInfo withProximity:(CLProximity)proximity willCheckOut:(BOOL)willCheckOut withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Abstract]
-        [Export("didCheckIntoBeacon:inZone:atLocation:withProximity:willCheckOut:withCustomData:")]
-        void DidCheckIntoBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, BDLocationInfo locationInfo, CLProximity proximity, bool willCheckOut, NSDictionary customData);
-
-        // @optional -(void)didCheckOutFromBeacon:(BDBeaconInfo *)beacon inZone:(BDZoneInfo *)zoneInfo withProximity:(CLProximity)proximity onDate:(NSDate *)date withDuration:(NSUInteger)checkedInDuration withCustomData:(NSDictionary *)customData __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Abstract]
-        [Export("didCheckOutFromBeacon:inZone:withProximity:onDate:withDuration:withCustomData:")]
-        void DidCheckOutFromBeacon(BDBeaconInfo beacon, BDZoneInfo zoneInfo, CLProximity proximity, NSDate date, nuint checkedInDuration, NSDictionary customData);
-
-        // @optional -(void)didStartRequiringUserInterventionForBluetooth __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Abstract]
-        [Export("didStartRequiringUserInterventionForBluetooth")]
-        void DidStartRequiringUserInterventionForBluetooth();
-
-        // @optional -(void)didStopRequiringUserInterventionForBluetooth __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Abstract]
-        [Export("didStopRequiringUserInterventionForBluetooth")]
-        void DidStopRequiringUserInterventionForBluetooth();
-
-        // @optional -(void)didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate locationAuthorizationDidChangeFromPreviousStatus:toNewStatus:]`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, locationAuthorizationDidChangeFromPreviousStatus:toNewStatus: method")]
-        [Abstract]
-        [Export("didStartRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
-        void DidStartRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
-
-        // @optional -(void)didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate locationAuthorizationDidChangeFromPreviousStatus:toNewStatus:]`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, locationAuthorizationDidChangeFromPreviousStatus:toNewStatus: method")]
-        [Abstract]
-        [Export("didStopRequiringUserInterventionForLocationServicesAuthorizationStatus:")]
-        void DidStopRequiringUserInterventionForLocationServicesAuthorizationStatus(CLAuthorizationStatus authorizationStatus);
-
-        // @optional -(void)didStartRequiringUserInterventionForPowerMode __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate lowPowerModeDidChange:]`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, lowPowerModeDidChange: method")]
-        [Abstract]
-        [Export("didStartRequiringUserInterventionForPowerMode")]
-        void DidStartRequiringUserInterventionForPowerMode();
-
-        // @optional -(void)didStopRequiringUserInterventionForPowerMode __attribute__((deprecated("First deprecated in 15.4.0 - Feature replaced by `-[BDPBluedotServiceDelegate lowPowerModeDidChange:]`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature replaced by BDPBluedotServiceDelegate, lowPowerModeDidChange: method")]
-        [Abstract]
-        [Export("didStopRequiringUserInterventionForPowerMode")]
-        void DidStopRequiringUserInterventionForPowerMode();
-    }
-
     // @protocol BDPBluedotServiceDelegate <NSObject>
-    [Protocol, Model]
+    [Protocol, Model(AutoGeneratedName = true)]
     [BaseType(typeof(NSObject))]
     interface IBDPBluedotServiceDelegate
     {
@@ -128,66 +33,70 @@ namespace PointSDK.iOS
     }
 
     // @protocol BDPGeoTriggeringEventDelegate <NSObject>
-    [Protocol, Model]
+    [Protocol, Model(AutoGeneratedName = true)]
     [BaseType(typeof(NSObject))]
     interface IBDPGeoTriggeringEventDelegate
     {
-        // @optional -(void)onZoneInfoUpdate:(NSSet<BDZoneInfo *> * _Nonnull)zoneInfos;
-        [Export("onZoneInfoUpdate:")]
-        void OnZoneInfoUpdate(NSSet zoneInfos);
+        // @optional -(void)didUpdateZoneInfo;
+        [Export("didUpdateZoneInfo")]
+        void DidUpdateZoneInfo();
 
-        // @optional -(void)didEnterZone:(BDZoneEntryEvent * _Nonnull)enterEvent;
+        // @optional -(void)didEnterZone:(GeoTriggerEvent * _Nonnull)enterEvent;
         [Export("didEnterZone:")]
-        void DidEnterZone(BDZoneEntryEvent enterEvent);
+        void DidEnterZone(GeoTriggerEvent enterEvent);
 
-        // @optional -(void)didExitZone:(BDZoneExitEvent * _Nonnull)exitEvent;
+        // @optional -(void)didExitZone:(GeoTriggerEvent * _Nonnull)exitEvent;
         [Export("didExitZone:")]
-        void DidExitZone(BDZoneExitEvent exitEvent);
+        void DidExitZone(GeoTriggerEvent exitEvent);
     }
 
-    // @protocol BDPSessionDelegate <NSObject>
-    [Protocol, Model, Preserve]
+    // @protocol BDPTempoTrackingDelegate <NSObject>
+    [Protocol, Model(AutoGeneratedName = true)]
     [BaseType(typeof(NSObject))]
-    interface IBDPSessionDelegate
+    interface IBDPTempoTrackingDelegate
     {
-        // @required -(void)willAuthenticateWithApiKey:(NSString *)apiKey __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
-        [Abstract]
-        [Export("willAuthenticateWithApiKey:")]
-        void WillAuthenticateWithApiKey(string apiKey);
+        // @optional -(void)tempoTrackingDidExpire;
+        [Export("tempoTrackingDidExpire")]
+        void TempoTrackingDidExpire();
 
-        // @required -(void)authenticationWasSuccessful __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
-        [Abstract]
-        [Export("authenticationWasSuccessful")]
-        void AuthenticationWasSuccessful();
+        // @optional -(void)tempoTrackingDidUpdate:(TempoTrackingUpdate *)tempoUpdate;
+        [Export("tempoTrackingDidUpdate:")]
+        void TempoTrackingDidUpdate(TempoTrackingUpdate tempoUpdate);
 
-        // @required -(void)authenticationWasDeniedWithReason:(NSString *)reason __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
+        // @required -(void)didStopTrackingWithError:(NSError *)error;
         [Abstract]
-        [Export("authenticationWasDeniedWithReason:")]
-        void AuthenticationWasDeniedWithReason(string reason);
-
-        // @required -(void)authenticationFailedWithError:(NSError *)error __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `BDLocationManager.-initializeWithProjectId:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, initializeWithProjectId:completion: method")]
-        [Abstract]
-        [Export("authenticationFailedWithError:")]
-        void AuthenticationFailedWithError(NSError error);
-
-        // @required -(void)didEndSession __attribute__((deprecated("First deprecated in 15.4.0 - session ending delegate callbacks are now returned in reset's completion callbacks. Please refer to `BDLocationManager.-resetWithCompletion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, resetWithCompletion: method")]
-        [Abstract]
-        [Export("didEndSession")]
-        void DidEndSession();
-
-        // @required -(void)didEndSessionWithError:(NSError *)error __attribute__((deprecated("First deprecated in 15.4.0 - session ending delegate callbacks are now returned in reset's completion callbacks. Please refer to `BDLocationManager.-resetWithCompletion:`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to BDLocationManager, resetWithCompletion: method")]
-        [Abstract]
-        [Export("didEndSessionWithError:")]
-        void DidEndSessionWithError(NSError error);
+        [Export("didStopTrackingWithError:")]
+        void DidStopTrackingWithError(NSError error);
     }
 
-    interface IBDPSpatialObjectInfo { }
+    // @interface BDZoneInfo : NSObject
+    [BaseType(typeof(NSObject))]
+    interface BDZoneInfo
+    {
+        // @property (readonly, copy) NSString * _Nonnull name;
+        [Export("name")]
+        string Name { get; }
+
+        // @property (readonly, copy) NSString * _Nonnull ID;
+        [Export("ID")]
+        string ID { get; }
+
+        // @property (readonly, copy) NSSet<BDFenceInfo *> * _Nonnull fences;
+        [Export("fences", ArgumentSemantic.Copy)]
+        NSSet<BDFenceInfo> Fences { get; }
+
+        // @property (readonly) BOOL checkOut;
+        [Export("checkOut")]
+        bool CheckOut { get; }
+
+        // @property (readonly, copy) NSDictionary<NSString *,NSString *> * _Nonnull customData;
+        [Export("customData", ArgumentSemantic.Copy)]
+        NSDictionary<NSString, NSString> CustomData { get; }
+
+        // @property (readonly) Destination * _Nullable destination;
+        [NullAllowed, Export("destination")]
+        Destination Destination { get; }
+    }
 
     // @interface BDLocationManager : CLLocationManager
     [BaseType(typeof(CLLocationManager))]
@@ -214,33 +123,6 @@ namespace PointSDK.iOS
         [Export("resetWithCompletion:")]
         void ResetWithCompletion(Action<NSError> completion);
 
-
-        // -(void)authenticateWithApiKey:(NSString *)apiKey __attribute__((deprecated("First deprecated in 1.14.0 - use method `-[BDLocationManager initializeWithProjectId:completion:]` instead")));
-        [Obsolete("First deprecated in 1.14.0 - use method initializeWithProjectId:completion: instead")]
-        [Export("authenticateWithApiKey:requestAuthorization:")]
-        void AuthenticateWithApiKey(string apiKey, BDAuthorizationLevel authorizationLevel);
-
-        // -(void)logOut __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager resetWithCompletion:]` instead")));
-        [Obsolete("First deprecated in 15.4.0 - use method resetWithCompletion: instead")]
-        [Export("logOut")]
-        void LogOut();
-
-        [Wrap("WeakLocationDelegate")]
-        IBDPLocationDelegate LocationDelegate { get; set; }
-
-        // @property id<BDPLocationDelegate> locationDelegate __attribute__((deprecated("First deprecated in 15.4.0 - Features migrated to `bluedotServiceDelegate` or `geoTriggeringEventDelegate`")));
-        [Obsolete("First deprecated in 15.4.0 - Features migrated to BDPBluedotServiceDelegate or BDPGeoTriggeringEventDelegate")]
-        [NullAllowed, Export("locationDelegate", ArgumentSemantic.Assign)]
-        NSObject WeakLocationDelegate { get; set; }
-
-        [Wrap("WeakSessionDelegate")]
-        IBDPSessionDelegate SessionDelegate { get; set; }
-
-        // @property id<BDPSessionDelegate> sessionDelegate __attribute__((deprecated("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to `-[BDLocationManager initialize:completion:]`")));
-        [Obsolete("First deprecated in 15.4.0 - initialization related delegate callbacks are now returned in completion callbacks. Please refer to initializeWithProjectId:completion:")]
-        [NullAllowed, Export("sessionDelegate", ArgumentSemantic.Assign)]
-        NSObject WeakSessionDelegate { get; set; }
-
         [Wrap("WeakTempoTrackingDelegate")]
         IBDPTempoTrackingDelegate TempoTrackingDelegate { get; set; }
 
@@ -249,6 +131,7 @@ namespace PointSDK.iOS
         NSObject WeakTempoTrackingDelegate { get; set; }
 
         [Wrap("WeakBluedotServiceDelegate")]
+        [NullAllowed]
         IBDPBluedotServiceDelegate BluedotServiceDelegate { get; set; }
 
         // @property id<BDPBluedotServiceDelegate> _Nullable bluedotServiceDelegate;
@@ -256,37 +139,32 @@ namespace PointSDK.iOS
         NSObject WeakBluedotServiceDelegate { get; set; }
 
         [Wrap("WeakGeoTriggeringEventDelegate")]
+        [NullAllowed]
         IBDPGeoTriggeringEventDelegate GeoTriggeringEventDelegate { get; set; }
 
         // @property id<BDPGeoTriggeringEventDelegate> _Nullable geoTriggeringEventDelegate;
         [NullAllowed, Export("geoTriggeringEventDelegate", ArgumentSemantic.Assign)]
         NSObject WeakGeoTriggeringEventDelegate { get; set; }
 
-
-        // @property (readonly) BDAuthenticationState authenticationState;
-        [Export("authenticationState")]
-        BDAuthenticationState AuthenticationState { get; }
-
-        // @property (readonly, nonatomic) NSSet * zoneInfos;
-        [Export("zoneInfos")]
+        // @property (readonly, nonatomic) NSSet<BDZoneInfo *> * zoneInfos;
+        [NullAllowed, Export("zoneInfos")]
         NSSet ZoneInfos { get; }
+
+        // @property (nonatomic) BOOL backgroundLocationAccessForWhileUsing;
+        [Export("backgroundLocationAccessForWhileUsing")]
+        bool BackgroundLocationAccessForWhileUsing { get; set; }
 
         // -(void)setZone:(NSString *)zoneId disableByApplication:(BOOL)disable;
         [Export("setZone:disableByApplication:")]
         void SetZone(string zoneId, bool disable);
 
-        // -(BOOL)isZoneDisabledByApplication:(NSString *)zoneId __attribute__((deprecated("First deprecated in 1.13 - use method `-[BDLocationManager applicationContainsDisabledZone:completion:]` instead")));
-        [Obsolete("First deprecated in 1.13 - use method applicationContainsDisabledZone:completion: instead")]
-        [Export("isZoneDisabledByApplication:")]
-        bool IsZoneDisabledByApplication(string zoneId);
+        // -(void)applicationContainsDisabledZone:(NSString *)zoneId completion:(void (^)(BOOL))completion;
+        [Export("applicationContainsDisabledZone:completion:")]
+        void ApplicationContainsDisabledZone(string zoneId, Action<bool> completion);
 
         // -(NSString *)installRef;
         [Export("installRef")]
         string InstallRef();
-
-        // -(void)notifyPushUpdateWithData:(NSDictionary *)data;
-        [Export("notifyPushUpdateWithData:")]
-        void NotifyPushUpdateWithData(NSDictionary data);
 
         // -(NSString *)sdkVersion;
         [Export("sdkVersion")]
@@ -317,11 +195,6 @@ namespace PointSDK.iOS
         [Export("startTempoTrackingWithDestinationId:completion:")]
         void StartTempoTrackingWithDestinationId(string destinationId, Action<NSError> completion);
 
-        // -(void)startTempoTracking:(NSString * _Nonnull)destinationId __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager startTempoTrackingWithDestinationId:completion:]` instead")));
-        [Obsolete("First deprecated in 15.4.0 - use method startTempoTrackingWithDestinationId:completion: instead")]
-        [Export("startTempoTracking:")]
-        void StartTempoTracking(string destinationId);
-
         // -(void)stopTempoTrackingWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
         [Export("stopTempoTrackingWithCompletion:")]
         void StopTempoTrackingWithCompletion(Action<NSError> completion);
@@ -330,23 +203,9 @@ namespace PointSDK.iOS
         [Export("isTempoRunning")]
         bool IsTempoRunning { get; }
 
-        // -(void)stopTempoTracking __attribute__((deprecated("First deprecated in 15.4.0 - use method `-[BDLocationManager stopTempoTrackingWithCompletion:]` instead")));
-        [Obsolete("First deprecated in 15.4.0 - use method stopTempoTrackingWithCompletion: instead")]
-        [Export("stopTempoTracking")]
-        void StopTempoTracking();
-
-    }
-
-    // @protocol BDPAuthenticationStateProvider <NSObject>
-    [Protocol, Model]
-    [BaseType(typeof(NSObject))]
-    interface BDPAuthenticationStateProvider
-    {
-        // @required @property (readonly) BDAuthenticationState authenticationState __attribute__((deprecated("First deprecated in 15.4.0 - This will be removed in future version")));
-        [Obsolete("First deprecated in 15.4.0 - This will be removed in future version")]
-        [Abstract]
-        [Export("authenticationState")]
-        BDAuthenticationState AuthenticationState { get; }
+        // -(void)authorizationChangedWithManager:(CLLocationManager * _Nonnull)manager status:(CLAuthorizationStatus)status;
+        [Export("authorizationChangedWithManager:status:")]
+        void AuthorizationChangedWithManager(CLLocationManager manager, CLAuthorizationStatus status);
     }
 
     // @protocol BDPDeepCopy <NSObject>
@@ -357,7 +216,7 @@ namespace PointSDK.iOS
         // @required -(id)deepCopy;
         [Abstract]
         [Export("deepCopy")]
-        NSObject DeepCopy();
+        NSObject DeepCopy { get; }
     }
 
     // @protocol BDPGeometry <BDPDeepCopy>
@@ -377,21 +236,62 @@ namespace PointSDK.iOS
         // @required -(BDBoundingBox *)boundingBox;
         [Abstract]
         [Export("boundingBox")]
-        BDBoundingBox BoundingBox();
+        BDBoundingBox BoundingBox { get; }
 
         // @required -(BDPoint *)centroid;
         [Abstract]
         [Export("centroid")]
-        BDPoint Centroid();
+        BDPoint Centroid { get; }
 
         // @required -(BDLocationDistance)distanceTo:(BDGeometry *)geometry;
         [Abstract]
         [Export("distanceTo:")]
         double DistanceTo(BDGeometry geometry);
+
+        // @required -(BDGeometryType)geometryType;
+        [Abstract]
+        [Export("geometryType")]
+        string GeometryType { get; }
+    }
+
+    // @protocol BDPJSONSerializable <NSObject>
+    [Protocol, Model]
+    [BaseType(typeof(NSObject))]
+    interface BDPJSONSerializable
+    {
+        // @required -(NSDictionary * _Nullable)dictionaryRepresentation;
+        [Abstract]
+        [NullAllowed, Export("dictionaryRepresentation")]
+        NSDictionary DictionaryRepresentation { get; }
+    }
+
+    [Static]
+    partial interface Constants
+    {
+        // extern const BDGeometryType BDGeometryTypeBoundingBox;
+        [Field("BDGeometryTypeBoundingBox", "__Internal")]
+        NSString BDGeometryTypeBoundingBox { get; }
+
+        // extern const BDGeometryType BDGeometryTypeCircle;
+        [Field("BDGeometryTypeCircle", "__Internal")]
+        NSString BDGeometryTypeCircle { get; }
+
+        // extern const BDGeometryType BDGeometryTypeLineString;
+        [Field("BDGeometryTypeLineString", "__Internal")]
+        NSString BDGeometryTypeLineString { get; }
+
+        // extern const BDGeometryType BDGeometryTypePoint;
+        [Field("BDGeometryTypePoint", "__Internal")]
+        NSString BDGeometryTypePoint { get; }
+
+        // extern const BDGeometryType BDGeometryTypePolygon;
+        [Field("BDGeometryTypePolygon", "__Internal")]
+        NSString BDGeometryTypePolygon { get; }
     }
 
     // @interface BDGeometry : NSObject <BDPGeometry>
     [BaseType(typeof(NSObject))]
+    [Protocol]
     interface BDGeometry : BDPGeometry
     {
     }
@@ -404,12 +304,12 @@ namespace PointSDK.iOS
         // @required -(BOOL)valid;
         [Abstract]
         [Export("valid")]
-        bool Valid();
+        bool Valid { get; }
     }
 
-    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, NSCoding>
+    // @interface BDBoundingBox : BDGeometry <NSCopying, BDPValidatable, NSSecureCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDBoundingBox : INSCopying, BDPValidatable, INSCoding
+    interface BDBoundingBox : INSCopying, BDPValidatable, INSSecureCoding
     {
         // -(instancetype)initWithNorth:(BDLocationDegrees)north west:(BDLocationDegrees)west south:(BDLocationDegrees)south east:(BDLocationDegrees)east;
         [Export("initWithNorth:west:south:east:")]
@@ -419,33 +319,41 @@ namespace PointSDK.iOS
         [Export("initWithNorthEast:southWest:")]
         IntPtr Constructor(BDPoint northEast, BDPoint southWest);
 
+        // -(instancetype)initWithCoordinateRegion:(MKCoordinateRegion)region;
+        [Export("initWithCoordinateRegion:")]
+        IntPtr Constructor(MKCoordinateRegion region);
+
+        // -(MKCoordinateRegion)coordinateRegion;
+        [Export("coordinateRegion")]
+        MKCoordinateRegion CoordinateRegion { get; }
+
         // -(BDLocationDegrees)west;
         // -(void)setWest:(BDLocationDegrees)west;
         [Export("west")]
-        double West();
+        double West { get; set; }
 
         // -(BDLocationDegrees)north;
         // -(void)setNorth:(BDLocationDegrees)north;
         [Export("north")]
-        double North();
+        double North { get; set; }
 
         // -(BDLocationDegrees)east;
         // -(void)setEast:(BDLocationDegrees)east;
         [Export("east")]
-        double East();
+        double East { get; set; }
 
         // -(BDLocationDegrees)south;
         // -(void)setSouth:(BDLocationDegrees)south;
         [Export("south")]
-        double South();
+        double South { get; set; }
 
         // -(BDLocationDegrees)longitudeSpan;
         [Export("longitudeSpan")]
-        double LongitudeSpan();
+        double LongitudeSpan { get; }
 
         // -(BDLocationDegrees)latitudeSpan;
         [Export("latitudeSpan")]
-        double LatitudeSpan();
+        double LatitudeSpan { get; }
 
         // @property (nonatomic) BDPoint * northEast;
         [Export("northEast", ArgumentSemantic.Assign)]
@@ -460,9 +368,9 @@ namespace PointSDK.iOS
         NSObject[] Vertices { get; }
     }
 
-    // @interface BDCircle : BDGeometry <NSCoding>
+    // @interface BDCircle : BDGeometry <NSSecureCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDCircle : INSCoding
+    interface BDCircle : INSSecureCoding
     {
         // @property (nonatomic) BDPoint * center;
         [Export("center", ArgumentSemantic.Assign)]
@@ -481,22 +389,14 @@ namespace PointSDK.iOS
         [Export("circleWithCenter:radius:")]
         BDCircle CircleWithCenter(BDPoint center, double radius);
 
-        // -(BOOL)isEqual:(id)other;
-        [Export("isEqual:")]
-        bool IsEqual(NSObject other);
-
         // -(BOOL)isEqualToCircle:(BDCircle *)circle;
         [Export("isEqualToCircle:")]
         bool IsEqualToCircle(BDCircle circle);
-
-        // -(NSUInteger)hash;
-        [Export("hash")]
-        nuint Hash();
     }
 
-    // @interface BDPoint : BDGeometry <NSCopying, NSCoding>
+    // @interface BDPoint : BDGeometry <NSCopying, NSSecureCoding>
     [BaseType(typeof(BDGeometry))]
-    interface BDPoint : INSCopying, INSCoding
+    interface BDPoint : INSCopying, INSSecureCoding
     {
         // +(instancetype)pointWithLongitude:(BDLocationDegrees)longitude latitude:(BDLocationDegrees)latitude;
         [Static]
@@ -513,11 +413,11 @@ namespace PointSDK.iOS
 
         // -(NSString *)latitudeString;
         [Export("latitudeString")]
-        string LatitudeString();
+        string LatitudeString { get; }
 
         // -(NSString *)longitudeString;
         [Export("longitudeString")]
-        string LongitudeString();
+        string LongitudeString { get; }
 
         // @property (nonatomic) BDLocationDegrees longitude;
         [Export("longitude")]
@@ -533,32 +433,24 @@ namespace PointSDK.iOS
 
         // -(CGPoint)cgPoint;
         [Export("cgPoint")]
-        CGPoint CgPoint();
-
-        // -(BOOL)isEqual:(id)other;
-        [Export("isEqual:")]
-        bool IsEqual(NSObject other);
+        CGPoint CgPoint { get; }
 
         // -(BOOL)isEqualToPoint:(BDPoint *)point;
         [Export("isEqualToPoint:")]
         bool IsEqualToPoint(BDPoint point);
 
-        // -(NSUInteger)hash;
-        [Export("hash")]
-        nuint Hash();
-
         // -(BOOL)isOrigin;
         [Export("isOrigin")]
-        bool IsOrigin();
+        bool IsOrigin { get; }
     }
 
-    // @interface BDPolygonal : BDGeometry <NSCoding>
+    // @interface BDPolygonal : BDGeometry
     [BaseType(typeof(BDGeometry))]
-    interface BDPolygonal: INSCoding
+    interface BDPolygonal
     {
         // -(NSUInteger)vertexCount;
         [Export("vertexCount")]
-        nuint VertexCount();
+        nuint VertexCount { get; }
 
         // -(void)addVertex:(BDPoint *)vertex;
         [Export("addVertex:")]
@@ -570,12 +462,12 @@ namespace PointSDK.iOS
 
         // -(BOOL)isClosed;
         [Export("isClosed")]
-        bool IsClosed();
+        bool IsClosed { get; }
     }
 
-    // @interface BDLineString : BDPolygonal <NSCoding>
+    // @interface BDLineString : BDPolygonal <NSSecureCoding>
     [BaseType(typeof(BDPolygonal))]
-    interface BDLineString : INSCoding
+    interface BDLineString : INSSecureCoding
     {
         // +(instancetype)lineStringWithVertices:(NSArray *)vertices copy:(BOOL)copy;
         [Static]
@@ -604,9 +496,9 @@ namespace PointSDK.iOS
         BDPoint End { get; set; }
     }
 
-    // @interface BDPolygon : BDPolygonal <NSCoding>
+    // @interface BDPolygon : BDPolygonal <NSSecureCoding>
     [BaseType(typeof(BDPolygonal))]
-    interface BDPolygon: INSCoding
+    interface BDPolygon : INSSecureCoding
     {
         // +(instancetype)polygonWithVertices:(NSArray *)vertices copy:(BOOL)copy;
         [Static]
@@ -623,6 +515,10 @@ namespace PointSDK.iOS
     [BaseType(typeof(NSObject))]
     interface BDLocation : BDPDeepCopy
     {
+        // -(instancetype)initWithCLLocation:(CLLocation *)coreLocation;
+        [Export("initWithCLLocation:")]
+        IntPtr Constructor(CLLocation coreLocation);
+
         // -(instancetype)initWithLatitude:(BDLocationDegrees)latitude longitude:(BDLocationDegrees)longitude altitude:(BDLocationDistance)altitude accuracy:(BDLocationAccuracy)accuracy altitudeAccuracy:(BDLocationAccuracy)altitudeAccuracy speed:(BDLocationSpeed)speed bearing:(BDLocationDirection)bearing;
         [Export("initWithLatitude:longitude:altitude:accuracy:altitudeAccuracy:speed:bearing:")]
         IntPtr Constructor(double latitude, double longitude, double altitude, double accuracy, double altitudeAccuracy, double speed, double bearing);
@@ -659,63 +555,9 @@ namespace PointSDK.iOS
         [Export("timestamp", ArgumentSemantic.Assign)]
         NSDate Timestamp { get; set; }
 
-        // -(BOOL)isEqual:(id)other;
-        [Export("isEqual:")]
-        bool IsEqual(NSObject other);
-
         // -(BOOL)isEqualToLocation:(BDLocation *)location;
         [Export("isEqualToLocation:")]
         bool IsEqualToLocation(BDLocation location);
-
-        // -(NSUInteger)hash;
-        [Export("hash")]
-        nuint Hash();
-    }
-
-    // @interface BDZoneInfo : NSObject
-    [BaseType(typeof(NSObject))]
-    interface BDZoneInfo
-    {
-        // @property (readonly, copy) NSString * name;
-        [Export("name")]
-        string Name { get; }
-
-        // @property (readonly, copy) NSString * description;
-        [Export("description")]
-        string Description { get; }
-
-        // @property (readonly, copy) NSString * ID;
-        [Export("ID")]
-        string ID { get; }
-
-        // @property (readonly, copy) NSSet<BDFenceInfo *> * fences;
-        [Export("fences", ArgumentSemantic.Copy)]
-        NSSet Fences { get; }
-
-        // @property (readonly, copy) NSSet<BDBeaconInfo *> * beacons __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - This will be removed in future version")]
-        [Export("beacons", ArgumentSemantic.Copy)]
-        NSSet Beacons { get; }
-
-        // @property (readonly) BOOL checkOut;
-        [Export("checkOut")]
-        bool CheckOut { get; }
-
-        // @property (readonly, copy) NSDictionary<NSString *,NSString *> * customData;
-        [Export("customData", ArgumentSemantic.Copy)]
-        NSDictionary<NSString, NSString> CustomData { get; }
-
-        // -(BOOL)isEqual:(id)other;
-        [Export("isEqual:")]
-        bool IsEqual(NSObject other);
-
-        // -(BOOL)isEqualToInfo:(BDZoneInfo *)info;
-        [Export("isEqualToInfo:")]
-        bool IsEqualToInfo(BDZoneInfo info);
-
-        // -(NSUInteger)hash;
-        [Export("hash")]
-        nuint Hash();
     }
 
     // @protocol BDPSpatialObject <NSObject>
@@ -726,7 +568,7 @@ namespace PointSDK.iOS
         // @required -(BDGeometry *)geometry;
         [Abstract]
         [Export("geometry")]
-        BDGeometry Geometry();
+        BDGeometry Geometry { get; }
     }
 
     // @protocol BDPSpatialObjectInfo <BDPSpatialObject>
@@ -738,82 +580,27 @@ namespace PointSDK.iOS
         [Export("name")]
         string Name { get; }
 
-        // @required @property (readonly, copy) NSString * description;
-        [Abstract]
-        [Export("description")]
-        string Description { get; }
-
         // @required @property (readonly, copy) NSString * ID;
         [Abstract]
         [Export("ID")]
         string ID { get; }
-
-        //// @required @property (readonly) BDGeometry * geometry;
-        //[Abstract]
-        //[Export("geometry")]
-        //BDGeometry Geometry { get; }
     }
 
-    // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
+    // @interface BDFenceInfo : NSObject <BDPSpatialObjectInfo, NSSecureCoding>
     [BaseType(typeof(NSObject))]
-    interface BDFenceInfo : BDPSpatialObjectInfo, INSCoding
+    interface BDFenceInfo : BDPSpatialObjectInfo, INSSecureCoding
     {
-        //// @property (readonly, copy) NSString * name;
-        //[Export("name")]
-        //string Name { get; }
+        // @property (readonly, copy) NSString * name;
+        [Export("name")]
+        new string Name { get; }
 
-        //// @property (readonly, copy) NSString * description;
-        //[Export("description")]
-        //string Description { get; }
+        // @property (readonly, copy) NSString * ID;
+        [Export("ID")]
+        new string ID { get; }
 
-        //// @property (readonly, copy) NSString * ID;
-        //[Export("ID")]
-        //string ID { get; }
-
-        //// @property (readonly) BDGeometry * geometry;
-        //[Export("geometry")]
-        //BDGeometry Geometry { get; }
-    }
-
-    // @interface BDBeaconInfo : NSObject <BDPSpatialObjectInfo, NSCoding>
-    [BaseType(typeof(NSObject))]
-    interface BDBeaconInfo : BDPSpatialObjectInfo, INSCoding
-    {
-        // @property (readonly, copy) NSString * name __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        //[Export("name")]
-        //string Name { get; }
-
-        // @property (readonly, copy) NSString * description __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        //[Export("description")]
-        //string Description { get; }
-
-        // @property (readonly, copy) NSString * ID __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        //[Export("ID")]
-        //string ID { get; }
-
-        // @property (readonly, copy) NSString * proximityUuid __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Export("proximityUuid")]
-        string ProximityUuid { get; }
-
-        // @property (readonly) NSUInteger major __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Export("major")]
-        nuint Major { get; }
-
-        // @property (readonly) NSUInteger minor __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Export("minor")]
-        nuint Minor { get; }
-
-        // @property (readonly) CLLocationCoordinate2D location __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        [Obsolete("First deprecated in 15.4.0 - It will be removed in a future version")]
-        [Export("location")]
-        CLLocationCoordinate2D Location { get; }
-
-        // @property (readonly) BDGeometry * geometry __attribute__((deprecated("First deprecated in 15.4.0 - It will be removed in a future version")));
-        //[Export("geometry")]
-        //BDGeometry Geometry { get; }
+        // @property (readonly) BDGeometry * geometry;
+        [Export("geometry")]
+        new BDGeometry Geometry { get; }
     }
 
     // @interface BDLocationInfo : NSObject
@@ -851,99 +638,743 @@ namespace PointSDK.iOS
         NSException ExceptionWithReason(string reason);
     }
 
-    // @interface BDPointOverlayRendererFactory : NSObject
+    // @interface AppInfo : NSObject
     [BaseType(typeof(NSObject))]
-    interface BDPointOverlayRendererFactory
+    [Protocol]
+    [DisableDefaultCtor]
+    interface AppInfo
     {
-        // +(instancetype)sharedInstance;
-        [Static]
-        [Export("sharedInstance")]
-        BDPointOverlayRendererFactory SharedInstance();
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull appBuildVersion;
+        [Export("appBuildVersion")]
+        string AppBuildVersion { get; }
 
-        // -(MKOverlayRenderer *)rendererForOverlay:(id<MKOverlay>)pointOverlay;
-        [Export("rendererForOverlay:")]
-        MKOverlayRenderer RendererForOverlay(MKOverlay pointOverlay);
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull minimumOSVersion;
+        [Export("minimumOSVersion")]
+        string MinimumOSVersion { get; }
 
-        // -(BOOL)isPointOverlay:(id<MKOverlay>)overlay;
-        [Export("isPointOverlay:")]
-        bool IsPointOverlay(MKOverlay overlay);
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull customerApplicationId;
+        [Export("customerApplicationId")]
+        string CustomerApplicationId { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull sdkVersion;
+        [Export("sdkVersion")]
+        string SdkVersion { get; }
+
+        // @property (readonly, copy, nonatomic) NSDictionary<NSString *,NSString *> * _Nonnull customEventMetaData;
+        [Export("customEventMetaData", ArgumentSemantic.Copy)]
+        NSDictionary<NSString, NSString> CustomEventMetaData { get; }
+
+        // -(instancetype _Nonnull)initWithMetaData:(NSDictionary<NSString *,NSString *> * _Nonnull)metaData;
+        [Export("initWithMetaData:")]
+        IntPtr Constructor(NSDictionary<NSString, NSString> metaData);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
     }
 
-    // @interface BDZoneEntryEvent : NSObject
+    // @interface AppRestartNotificationConfiguration : NSObject
     [BaseType(typeof(NSObject))]
-    interface BDZoneEntryEvent
+    [Protocol]
+    interface AppRestartNotificationConfiguration
     {
-        // @property (readonly, copy) BDFenceInfo * _Nonnull fence;
-        [Export("fence", ArgumentSemantic.Copy)]
-        BDFenceInfo Fence { get; }
+        // @property (readonly, nonatomic) BOOL requiresAppRestartNotification;
+        [Export("requiresAppRestartNotification")]
+        bool RequiresAppRestartNotification { get; }
 
-        // @property (readonly, copy) BDZoneInfo * _Nonnull zone;
-        [Export("zone", ArgumentSemantic.Copy)]
-        BDZoneInfo Zone { get; }
+        // @property (readonly, copy, nonatomic) NSString * _Nullable appRestartNotificationTitle;
+        [NullAllowed, Export("appRestartNotificationTitle")]
+        string AppRestartNotificationTitle { get; }
 
-        // @property (readonly, copy) BDLocationInfo * _Nonnull location;
-        [Export("location", ArgumentSemantic.Copy)]
-        BDLocationInfo Location { get; }
+        // @property (readonly, copy, nonatomic) NSString * _Nullable appRestartNotificationButtonText;
+        [NullAllowed, Export("appRestartNotificationButtonText")]
+        string AppRestartNotificationButtonText { get; }
 
-        // @property (readonly) BOOL isExitEnabled;
-        [Export("isExitEnabled")]
-        bool IsExitEnabled { get; }
+        // -(void)disable;
+        [Export("disable")]
+        void Disable();
 
-        // @property (readonly) NSDictionary * customData;
-        [Export("customData")]
-        NSDictionary CustomData { get; }
+        // -(void)enableWithNotificationTitle:(NSString * _Nullable)notificationTitle notificationButtonText:(NSString * _Nullable)notificationButtonText;
+        [Export("enableWithNotificationTitle:notificationButtonText:")]
+        void EnableWithNotificationTitle([NullAllowed] string notificationTitle, [NullAllowed] string notificationButtonText);
     }
 
-    // @interface BDZoneExitEvent : NSObject
+    // @interface AppState : NSObject
     [BaseType(typeof(NSObject))]
-    interface BDZoneExitEvent
+    [Protocol]
+    [DisableDefaultCtor]
+    interface AppState
     {
-        // @property (readonly, copy) BDFenceInfo * _Nonnull fence;
-        [Export("fence", ArgumentSemantic.Copy)]
-        BDFenceInfo Fence { get; }
+        // @property (readonly, nonatomic) NSDecimal batteryLevel;
+        [Export("batteryLevel")]
+        NSDecimal BatteryLevel { get; }
 
-        // @property (readonly, copy) BDZoneInfo * _Nonnull zone;
-        [Export("zone", ArgumentSemantic.Copy)]
-        BDZoneInfo Zone { get; }
+        // @property (readonly, nonatomic) BOOL blueBarEnabled;
+        [Export("blueBarEnabled")]
+        bool BlueBarEnabled { get; }
 
-        // @property (readonly, copy) NSDate * _Nonnull date;
-        [Export("date", ArgumentSemantic.Copy)]
-        NSDate Date { get; }
+        // @property (readonly, copy, nonatomic) NSDate * _Nullable lastRuleDownload;
+        [NullAllowed, Export("lastRuleDownload", ArgumentSemantic.Copy)]
+        NSDate LastRuleDownload { get; }
 
-        // @property (readonly) NSUInteger duration;
-        [Export("duration")]
-        nuint Duration { get; }
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull locationPermission;
+        [Export("locationPermission")]
+        string LocationPermission { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull notificationPermission;
+        [Export("notificationPermission")]
+        string NotificationPermission { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull viewState;
+        [Export("viewState")]
+        string ViewState { get; }
+
+        // -(instancetype _Nonnull)initWithLastRuleDownload:(NSDate * _Nullable)lastRuleDownload osRestrictions:(NSArray<NSString *> * _Nonnull)osRestrictions;
+        [Export("initWithLastRuleDownload:osRestrictions:")]
+        IntPtr Constructor([NullAllowed] NSDate lastRuleDownload, string[] osRestrictions);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
     }
 
-    // @protocol BDPRestartAlertDelegate <NSObject>
+    // @interface CrossedFence : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface CrossedFence
+    {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull fenceId;
+        [Export("fenceId")]
+        string FenceId { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull fenceName;
+        [Export("fenceName")]
+        string FenceName { get; }
+
+        // @property (readonly, copy, nonatomic) NSDate * _Nonnull crossTime;
+        [Export("crossTime", ArgumentSemantic.Copy)]
+        NSDate CrossTime { get; }
+
+        // @property (readonly, nonatomic, strong) CLLocation * _Nonnull location;
+        [Export("location", ArgumentSemantic.Strong)]
+        CLLocation Location { get; }
+
+        // -(instancetype _Nonnull)initWithFenceId:(NSString * _Nonnull)fenceId fenceName:(NSString * _Nonnull)fenceName location:(CLLocation * _Nonnull)location crossTime:(NSDate * _Nonnull)crossTime __attribute__((objc_designated_initializer));
+        [Export("initWithFenceId:fenceName:location:crossTime:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(string fenceId, string fenceName, CLLocation location, NSDate crossTime);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+    // @interface Destination : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface Destination
+    {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull destinationId;
+        [Export("destinationId")]
+        string DestinationId { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nullable name;
+        [NullAllowed, Export("name")]
+        string Name { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nullable address;
+        [NullAllowed, Export("address")]
+        string Address { get; }
+
+        // @property (readonly, nonatomic, strong) BDPoint * _Nonnull location;
+        [Export("location", ArgumentSemantic.Strong)]
+        BDPoint Location { get; }
+
+        // -(instancetype _Nonnull)initWithDestinationId:(NSString * _Nonnull)destinationId name:(NSString * _Nullable)name address:(NSString * _Nullable)address location:(BDPoint * _Nonnull)location __attribute__((objc_designated_initializer));
+        [Export("initWithDestinationId:name:address:location:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(string destinationId, [NullAllowed] string name, [NullAllowed] string address, BDPoint location);
+
+        // -(instancetype _Nonnull)initWithDestination:(Destination * _Nonnull)destination;
+        [Export("initWithDestination:")]
+        IntPtr Constructor(Destination destination);
+
+        // -(instancetype _Nullable)initWithDictionary:(NSDictionary * _Nonnull)dictionary error:(NSError * _Nullable * _Nullable)error;
+        [Export("initWithDictionary:error:")]
+        IntPtr Constructor(NSDictionary dictionary, [NullAllowed] out NSError error);
+
+        // -(NSString* _Nullable) toJson:(NSError* _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+
+        // -(NSDictionary * _Nullable)dictionaryRepresentation __attribute__((warn_unused_result("")));
+        [NullAllowed, Export("dictionaryRepresentation")]
+        NSDictionary DictionaryRepresentation { get; }
+    }
+
+    // @interface DeviceInfo : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface DeviceInfo
+    {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull deviceType;
+        [Export("deviceType")]
+        string DeviceType { get; }
+
+        // @property (readonly, nonatomic, strong) OperatingSystemInfo * _Nonnull osInfo;
+        [Export("osInfo", ArgumentSemantic.Strong)]
+        OperatingSystemInfo OsInfo { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nullable advertisingId;
+        [NullAllowed, Export("advertisingId")]
+        string AdvertisingId { get; }
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+
+    // @protocol Event <NSObject>
     [Protocol, Model]
     [BaseType(typeof(NSObject))]
-    interface BDPRestartAlertDelegate
+    interface Event
     {
-        // @required -(NSString *)restartAlertTitle __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `BDLocationManager.-startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature migrated to startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:")]
+        // @required @property (readonly, nonatomic) enum EventType eventType;
         [Abstract]
-        [Export("restartAlertTitle")]
-        string RestartAlertTitle();
+        [Export("eventType")]
+        EventType EventType { get; }
 
-        // @optional -(NSString *)restartButtonText __attribute__((deprecated("First deprecated in 15.4.0 - Feature migrated to `BDLocationManager.-startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:`")));
-        [Obsolete("First deprecated in 15.4.0 - Feature migrated to startGeoTriggeringWithAppRestartNotificationTitle:notificationButtonText:completion:")]
-        [Export("restartButtonText")]
-        string RestartButtonText();
+        // @required @property (readonly, copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Abstract]
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        NSDate EventTime { get; }
+
+        // @required @property (readonly, copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Abstract]
+        [Export("timeZoneIdentifier")]
+        string TimeZoneIdentifier { get; }
+
+        // @required @property (readonly, nonatomic) enum TriggerEngine triggerEngine;
+        [Abstract]
+        [Export("triggerEngine")]
+        TriggerEngine TriggerEngine { get; }
+
+        // @required @property (readonly, nonatomic, strong) AppState * _Nonnull appState;
+        [Abstract]
+        [Export("appState", ArgumentSemantic.Strong)]
+        AppState AppState { get; }
     }
 
-    // @protocol BDPNamedDescribed
+    // @interface FenceEntered : NSObject
+    [BaseType(typeof(NSObject))]
     [Protocol]
-    interface BDPNamedDescribed
+    [DisableDefaultCtor]
+    interface FenceEntered
     {
-        // @required @property (copy) NSString * name;
-        [Abstract]
-        [Export("name")]
-        string Name { get; set; }
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        EventType EventType { get; }
 
-        // @required @property (readwrite, copy) NSString * description;
+        // @property (readonly, copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        NSDate EventTime { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull fenceName;
+        [Export("fenceName")]
+        string FenceName { get; }
+
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull fenceId;
+        [Export("fenceId", ArgumentSemantic.Copy)]
+        NSUuid FenceId { get; }
+
+        // @property (readonly, copy, nonatomic) NSArray<CLLocation *> * _Nonnull locations;
+        [Export("locations", ArgumentSemantic.Copy)]
+        CLLocation[] Locations { get; }
+
+        // @property (readonly, nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        AppState AppState { get; }
+
+        // @property (readonly, copy, nonatomic) NSArray<CrossedFence *> * _Nullable crossedFences;
+        [NullAllowed, Export("crossedFences", ArgumentSemantic.Copy)]
+        CrossedFence[] CrossedFences { get; }
+
+        // @property (readonly, nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine")]
+        TriggerEngine TriggerEngine { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        string TimeZoneIdentifier { get; }
+
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        NSUuid UniqueId { get; }
+
+        // -(instancetype _Nonnull)initWithFenceId:(NSUUID * _Nonnull)fenceId fenceName:(NSString * _Nonnull)fenceName eventTime:(NSDate * _Nonnull)eventTime locations:(NSArray<CLLocation *> * _Nonnull)locations appState:(AppState * _Nonnull)appState crossedFences:(NSArray<CrossedFence *> * _Nullable)crossedFences;
+        [Export("initWithFenceId:fenceName:eventTime:locations:appState:crossedFences:")]
+        IntPtr Constructor(NSUuid fenceId, string fenceName, NSDate eventTime, CLLocation[] locations, AppState appState, [NullAllowed] CrossedFence[] crossedFences);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+    // @protocol TriggerEvent <Event, NSCopying>
+    [Protocol, Model]
+    [BaseType(typeof(NSObject))]
+    interface TriggerEvent : Event
+    {
+        // @required @property (readonly, copy, nonatomic) NSString * _Nonnull fenceName;
         [Abstract]
-        [Export("description")]
-        string Description { get; set; }
+        [Export("fenceName")]
+        string FenceName { get; }
+
+        // @required @property (readonly, copy, nonatomic) NSUUID * _Nonnull fenceId;
+        [Abstract]
+        [Export("fenceId", ArgumentSemantic.Copy)]
+        NSUuid FenceId { get; }
+
+        // @required @property (readonly, copy, nonatomic) NSArray<CLLocation *> * _Nonnull locations;
+        [Abstract]
+        [Export("locations", ArgumentSemantic.Copy)]
+        CLLocation[] Locations { get; }
+
+        // @required @property (readonly, copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Abstract]
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        NSUuid UniqueId { get; }
+    }
+   
+    // @interface FenceExited : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface FenceExited
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        EventType EventType { get; }
+
+        // @property (readonly, copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        NSDate EventTime { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull fenceName;
+        [Export("fenceName")]
+        string FenceName { get; }
+
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull fenceId;
+        [Export("fenceId", ArgumentSemantic.Copy)]
+        NSUuid FenceId { get; }
+
+        // @property (readonly, copy, nonatomic) NSArray<CLLocation *> * _Nonnull locations;
+        [Export("locations", ArgumentSemantic.Copy)]
+        CLLocation[] Locations { get; }
+
+        // @property (readonly, nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        AppState AppState { get; }
+
+        // @property (readonly, nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine")]
+        TriggerEngine TriggerEngine { get; }
+
+        // @property (readonly, nonatomic) float distance;
+        [Export("distance")]
+        float Distance { get; }
+
+        // @property (readonly, nonatomic) float distanceRequired;
+        [Export("distanceRequired")]
+        float DistanceRequired { get; }
+
+        // @property (readonly, nonatomic) NSTimeInterval dwellTime;
+        [Export("dwellTime")]
+        double DwellTime { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        string TimeZoneIdentifier { get; }
+
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        NSUuid UniqueId { get; }
+
+        // -(instancetype _Nonnull)initWithFenceId:(NSUUID * _Nonnull)fenceId fenceName:(NSString * _Nonnull)fenceName eventTime:(NSDate * _Nonnull)eventTime locations:(NSArray<CLLocation *> * _Nonnull)locations dwellTime:(NSTimeInterval)dwellTime distance:(float)distance distanceRequired:(float)distanceRequired appState:(AppState * _Nonnull)appState;
+        [Export("initWithFenceId:fenceName:eventTime:locations:dwellTime:distance:distanceRequired:appState:")]
+        IntPtr Constructor(NSUuid fenceId, string fenceName, NSDate eventTime, CLLocation[] locations, double dwellTime, float distance, float distanceRequired, AppState appState);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+    // @interface GeoTriggerEvent : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface GeoTriggerEvent
+    {
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull installRef;
+        [Export("installRef", ArgumentSemantic.Copy)]
+        NSUuid InstallRef { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull projectId;
+        [Export("projectId")]
+        string ProjectId { get; }
+
+        // @property (readonly, nonatomic, strong) DeviceInfo * _Nonnull deviceInfo;
+        [Export("deviceInfo", ArgumentSemantic.Strong)]
+        DeviceInfo DeviceInfo { get; }
+
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull triggerChainId;
+        [Export("triggerChainId", ArgumentSemantic.Copy)]
+        NSUuid TriggerChainId { get; }
+
+        // @property (readonly, nonatomic) enum NotificationType notificationType;
+        [Export("notificationType")]
+        NotificationType NotificationType { get; }
+
+        // @property (readonly, nonatomic, strong) ZoneInfo * _Nonnull zoneInfo;
+        [Export("zoneInfo", ArgumentSemantic.Strong)]
+        ZoneInfo ZoneInfo { get; }
+
+        // @property (readonly, nonatomic, strong) AppInfo * _Nonnull appInfo;
+        [Export("appInfo", ArgumentSemantic.Strong)]
+        AppInfo AppInfo { get; }
+
+        // @property (readonly, copy, nonatomic) NSArray<id<TriggerEvent>> * _Nonnull triggerEvents;
+        [Export("triggerEvents", ArgumentSemantic.Copy)]
+        TriggerEvent[] TriggerEvents { get; }
+
+        // @property (readonly, nonatomic, strong) FenceEntered * _Nullable entryEvent;
+        [NullAllowed, Export("entryEvent", ArgumentSemantic.Strong)]
+        FenceEntered EntryEvent { get; }
+
+        // @property (readonly, nonatomic, strong) FenceExited * _Nullable exitEvent;
+        [NullAllowed, Export("exitEvent", ArgumentSemantic.Strong)]
+        FenceExited ExitEvent { get; }
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+    // @protocol LifecycleEvent <Event>
+    [Protocol]
+    interface LifecycleEvent : Event
+    {
+        // @required @property (readonly, copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Abstract]
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        NSUuid UniqueId { get; }
+    }
+
+    // @interface GeoTriggerStart : NSObject <LifecycleEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface GeoTriggerStart : LifecycleEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        new NSUuid UniqueId { get; set; }
+
+        // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
+        [Export("initWithAppState:")]
+        IntPtr Constructor(AppState appState);
+    }
+
+    // @interface GeoTriggerStop : NSObject <LifecycleEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface GeoTriggerStop : LifecycleEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        new NSUuid UniqueId { get; set; }
+
+        // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
+        [Export("initWithAppState:")]
+        IntPtr Constructor(AppState appState);
+    }
+
+    // @interface OperatingSystemInfo : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface OperatingSystemInfo
+    {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull name;
+        [Export("name")]
+        string Name { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull version;
+        [Export("version")]
+        string Version { get; }
+    }
+
+    // @interface SdkInit : NSObject <LifecycleEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface SdkInit : LifecycleEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        new NSUuid UniqueId { get; set; }
+
+        // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
+        [Export("initWithAppState:")]
+        IntPtr Constructor(AppState appState);
+    }
+
+    // @interface SdkReset : NSObject <LifecycleEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface SdkReset : LifecycleEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSUUID * _Nonnull uniqueId;
+        [Export("uniqueId", ArgumentSemantic.Copy)]
+        new NSUuid UniqueId { get; set; }
+
+        // -(instancetype _Nonnull)initWithAppState:(AppState * _Nonnull)appState;
+        [Export("initWithAppState:")]
+        IntPtr Constructor(AppState appState);
+    }
+
+    // @protocol TempoEvent <Event>
+    [Protocol]
+    interface TempoEvent : Event
+    {
+        // @required @property (readonly, copy, nonatomic) NSString * _Nonnull destinationId;
+        [Abstract]
+        [Export("destinationId")]
+        string DestinationId { get; }
+    }
+
+    // @interface TempoStop : NSObject <TempoEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface TempoStop : TempoEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull destinationId;
+        [Export("destinationId")]
+        new string DestinationId { get; set; }
+
+        // -(instancetype _Nonnull)initWithDestinationId:(NSString * _Nonnull)destinationId stopReason:(enum TempoStopReason)stopReason appState:(AppState * _Nonnull)appState;
+        [Export("initWithDestinationId:stopReason:appState:")]
+        IntPtr Constructor(string destinationId, TempoStopReason stopReason, AppState appState);
+    }
+
+    // @interface TempoTrackingUpdate : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface TempoTrackingUpdate
+    {
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull triggerChainId;
+        [Export ("triggerChainId")]
+        string TriggerChainId { get; }
+
+        // @property (readonly, nonatomic) NSInteger eta;
+        [Export ("eta")]
+        nint Eta { get; }
+
+        // @property (readonly, nonatomic) enum TempoUpdateETADirection etaDirection;
+        [Export ("etaDirection")]
+        TempoUpdateETADirection EtaDirection { get; }
+
+        // @property (readonly, nonatomic, strong) Destination * _Nullable destination;
+        [NullAllowed, Export ("destination", ArgumentSemantic.Strong)]
+        Destination Destination { get; }
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
+    }
+
+    // @interface TempoUpdate : NSObject <TempoEvent>
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface TempoUpdate : TempoEvent
+    {
+        // @property (readonly, nonatomic) enum EventType eventType;
+        [Export("eventType")]
+        new EventType EventType { get; }
+
+        // @property (copy, nonatomic) NSDate * _Nonnull eventTime;
+        [Export("eventTime", ArgumentSemantic.Copy)]
+        new NSDate EventTime { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull timeZoneIdentifier;
+        [Export("timeZoneIdentifier")]
+        new string TimeZoneIdentifier { get; set; }
+
+        // @property (nonatomic) enum TriggerEngine triggerEngine;
+        [Export("triggerEngine", ArgumentSemantic.Assign)]
+        new TriggerEngine TriggerEngine { get; set; }
+
+        // @property (nonatomic, strong) AppState * _Nonnull appState;
+        [Export("appState", ArgumentSemantic.Strong)]
+        new AppState AppState { get; set; }
+
+        // @property (copy, nonatomic) NSString * _Nonnull destinationId;
+        [Export("destinationId")]
+        new string DestinationId { get; set; }
+
+        // -(instancetype _Nonnull)initWithLocations:(NSArray<CLLocation *> * _Nonnull)locations destinationId:(NSString * _Nonnull)destinationId appState:(AppState * _Nonnull)appState;
+        [Export("initWithLocations:destinationId:appState:")]
+        IntPtr Constructor(CLLocation[] locations, string destinationId, AppState appState);
+    }
+
+    // @interface ZoneInfo : NSObject
+    [BaseType(typeof(NSObject))]
+    [Protocol]
+    [DisableDefaultCtor]
+    interface ZoneInfo
+    {
+        // @property (readonly, copy, nonatomic) NSUUID * _Nonnull id;
+        [Export("id", ArgumentSemantic.Copy)]
+        NSUuid Id { get; }
+
+        // @property (readonly, copy, nonatomic) NSString * _Nonnull name;
+        [Export("name")]
+        string Name { get; }
+
+        // @property (readonly, copy, nonatomic) NSDictionary<NSString *,NSString *> * _Nonnull customData;
+        [Export("customData", ArgumentSemantic.Copy)]
+        NSDictionary<NSString, NSString> CustomData { get; }
+
+        // -(instancetype _Nonnull)initWithId:(NSUUID * _Nonnull)id name:(NSString * _Nonnull)name customData:(NSDictionary<NSString *,NSString *> * _Nonnull)customData uniqueId:(NSUUID * _Nonnull)uniqueId __attribute__((objc_designated_initializer));
+        [Export("initWithId:name:customData:uniqueId:")]
+        [DesignatedInitializer]
+        IntPtr Constructor(NSUuid id, string name, NSDictionary<NSString, NSString> customData, NSUuid uniqueId);
+
+        // -(instancetype _Nonnull)initWithZone:(ZoneInfo * _Nonnull)zone;
+        [Export("initWithZone:")]
+        IntPtr Constructor(ZoneInfo zone);
+
+        // -(NSString * _Nullable)toJson:(NSError * _Nullable * _Nullable)error __attribute__((warn_unused_result("")));
+        [Export("toJson:")]
+        [return: NullAllowed]
+        string ToJson([NullAllowed] out NSError error);
     }
 }
